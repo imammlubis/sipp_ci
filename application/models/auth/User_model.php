@@ -28,10 +28,12 @@
                             'user_id' => $user->id,
                             'fname' => $user->first_name, 
                             'lname' => $user->last_name,                        
-                            'email' => $user->email
+                            'email' => $user->email,
+                            'role' => $user->role
                         );
                         $this->session->set_userdata('logged_in',$sess_array);              
-                        return true;                    
+                        //return true;
+                        return $sess_array['role'];
                     }
                     else
                     {

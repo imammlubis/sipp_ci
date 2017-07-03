@@ -35,9 +35,13 @@ class User extends CI_Controller
                 $email = $this->input->post('email');
                 $password = $this->input->post('password');
                 $check_auth = $this->user_model->authenticate($email,$password);
-                if($check_auth)
+                if($check_auth == 'admin')
                 {
                     redirect('account/user/home');
+                }
+                else if($check_auth == 'company')
+                {
+                    redirect('account/user/company');
                 }
                 else
                 {
@@ -151,7 +155,15 @@ class User extends CI_Controller
     public function home()
     {
         check_user_sess();
-        $this->load->view('account/home');
+//        $this->load->view('account/home');
+
+        $data ['main_content'] = 'dashboard';
+        $this->load->view('layout/MainLayout', $data);
+    }
+    public function company()
+    {
+        check_user_sess();
+        $this->load->view('account/company');
     }
 
     /*

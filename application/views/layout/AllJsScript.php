@@ -17,6 +17,7 @@
 <script src="<?php echo base_url();?>application/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url();?>application/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url();?>application/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 <!-- END CORE PLUGINS -->
 <!-- BEGIN PAGE LEVEL PLUGINS -->
 <script src="<?php echo base_url();?>application/assets/global/plugins/moment.min.js" type="text/javascript"></script>
@@ -50,3 +51,5 @@
 <script src="<?php echo base_url();?>application/assets/layouts/layout3/scripts/demo.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url();?>application/assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
 <!-- END THEME LAYOUT SCRIPTS -->
+
+
