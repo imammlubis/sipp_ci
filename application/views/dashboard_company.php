@@ -27,7 +27,9 @@
                 <div class="page-content-inner">
                     <div class="mt-content-body">
                         <div class="row">
-                            <h3>Welcome Admin</h3>
+                            <h3>Welcome <?php
+                                echo $this->session->userdata('logged_in')['fname'].' '.$this->session->userdata('logged_in')['lname'];
+                                ?></h3>
                         </div>
 
                     </div>

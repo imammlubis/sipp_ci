@@ -1,5 +1,5 @@
 <?php
-    defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Created by PhpStorm.
  * User: imam lubis
@@ -7,7 +7,7 @@
  * Time: 3:26 AM
  */
 
-class DataPerusahaan extends CI_Controller{
+class DaftarPembayaran extends CI_Controller{
 
     public function __construct()
     {
@@ -27,7 +27,7 @@ class DataPerusahaan extends CI_Controller{
         {
             $this->load->helper('url');
 
-            $data ['main_content'] = 'perusahaan/dataperusahaan';
+            $data ['main_content'] = 'perusahaan/daftarpembayaran';
             $this->load->view('layout/MainLayout', $data);
         }
         else{

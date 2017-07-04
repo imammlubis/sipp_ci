@@ -11,7 +11,7 @@
             <div class="container">
                 <!-- BEGIN PAGE TITLE -->
                 <div class="page-title">
-                    <h1>Tagihan
+                    <h1>Daftar Pembayaran
                         <!--small>dashboard &amp; statistics</small-->
                     </h1>
                 </div>
@@ -33,7 +33,7 @@
                         <i class="fa fa-circle"></i>
                     </li>
                     <li>
-                        <span>Data Tagihan Awal</span>
+                        <span>Daftar Pembayaran</span>
                     </li>
                 </ul>
                 <!-- END PAGE BREADCRUMBS -->
@@ -44,113 +44,48 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h3 class="modal-title">Form Data Tagihan Awal Perusahaan</h3>
+                                <h3 class="modal-title">Form Pembayaran</h3>
                             </div>
                             <div class="modal-body form">
                                 <form action="#" id="form" class="form-horizontal">
                                     <input type="hidden" value="" name="id"/>
                                     <div class="form-body">
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label">Perusahaan</label>
-                                            <div class="col-md-8">
-                                                <div class="input-icon">
-                                                    <i class="fa fa-address-book-o"></i>
-                                                    <select class="itemName form-control input-circle" style="width:370px"
-                                                            id="itemName" name="itemName"></select>
-                                                    <input id="company_name" name="company_name" type="text"
-                                                           class="form-control input-circle" placeholder="Perusahaan">
-                                                </div>
+                                            <label class="control-label col-md-3">Nama Perusahaan</label>
+                                            <div class="col-md-9">
+                                                <input name="nama" id="nama" placeholder="Nama Perusahaan" class="form-control" type="text">
+                                                <span class="help-block"></span>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label">Pemeriksa</label>
-                                            <div class="col-md-8">
-                                                <div class="input-icon">
-                                                    <i class="fa fa-address-book-o"></i>
-                                                    <input id="pemeriksa" name="pemeriksa" type="text"
-                                                           class="form-control input-circle" placeholder="Pemeriksa">
-                                                </div>
+                                            <label class="control-label col-md-3">Tipe</label>
+                                            <div class="col-md-9">
+                                                <select class="form-control"
+                                                        name="tipetagihan" id="tipetagihan">
+                                                    <option value="">- Silahkan Pilih  -</option>
+                                                    <option value="IUP">IUP</option>
+                                                    <option value="PKP2B">PKP2B</option>
+                                                    <option value="KK">KK</option>
+                                                </select>
+                                                <span class="help-block"></span>
                                             </div>
                                         </div>
+
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label">Periode</label>
-                                            <div class="col-md-8">
-                                                <div class="input-icon">
-                                                    <i class="fa fa-address-book-o"></i>
-<!--                                                    <div class="input-group input-large date-picker input-daterange input-circle"-->
-<!--                                                         data-date-format="yyyy-mm-dd">-->
-<!--                                                        <input type="text" class="form-control" name="from" id="from">-->
-<!--                                                        <span class="input-group-addon"> to </span>-->
-<!--                                                        <input type="text" class="form-control" name="to" id="to"> </div>-->
-                                                    <input type="text" name="periodtime" id="periodtime"
-                                                           data-date-format="yyyy-mm-dd"
-                                                    value="" class="form-control input-circle" />
-                                         </div>
-                                     </div>
-                                 </div>
-                                 <div class="form-group">
-                                     <label class="col-md-3 control-label">Tahun Penagihan</label>
-                                     <div class="col-md-8">
-                                         <div class="input-icon">
-                                             <i class="fa fa-address-book-o"></i>
-                                             <input id="tahunpenagihan" name="tahunpenagihan" type="number"
-                                                    class="form-control input-circle" placeholder="Tahun Penagihan">
-                                         </div>
-                                     </div>
-                                 </div>
-                                 <div class="form-group">
-                                     <label class="col-md-3 control-label">No Surat Tagihan</label>
-                                     <div class="col-md-8">
-                                         <div class="input-icon">
-                                             <i class="fa fa-address-book-o"></i>
-                                             <input id="nosurat" name="nosurat" type="text"
-                                                    class="form-control input-circle" placeholder="No Surat Tagihan">
-                                         </div>
-                                     </div>
-                                 </div>
-                                 <div class="form-group">
-                                     <label class="col-md-3 control-label">Tanggal Tagihan</label>
-                                     <div class="col-md-8">
-                                         <div class="input-icon">
-                                             <i class="fa fa-address-book-o"></i>
-                                             <input id="tanggaltagihan" name="tanggaltagihan" type="text"
-                                                    class="form-control datepicker input-circle" placeholder="Tanggal Tagihan">
-                                         </div>
-                                     </div>
-                                 </div>
-                                 <div class="form-group">
-                                     <label class="col-md-3 control-label">Tipe Tagihan</label>
-                                     <div class="col-md-8">
-                                         <div class="input-icon">
-                                             <i class="fa fa-address-book-o"></i>
-                                             <select class="form-control input-circle"
-                                                     name="tipetagihan" id="tipetagihan">
-                                                 <option value="">- Silahkan Pilih  -</option>
-                                                 <option value="Iuran Tetap">Iuran Tetap</option>
-                                                 <option value="Royalti">Royalti</option>
-                                                 <option value="PHT">PHT</option>
-                                             </select>
-                                         </div>
-                                     </div>
-                                 </div>
-                                 <div class="form-group">
-                                     <label class="col-md-3 control-label">Nominal Tagihan</label>
-                                     <div class="col-md-8">
-                                         <div class="input-icon">
-                                             <i class="fa fa-address-book-o"></i>
-                                             <input id="nominaltagihan" name="nominaltagihan" type="number"
-                                                    class="form-control input-circle" placeholder="Nominal Tagihan">
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                         </form>
-                     </div>
-                     <div class="modal-footer">
-                         <button type="button" id="btnSave" onclick="save()" class="btn btn-primary">Save</button>
-                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                     </div>
-                 </div><!-- /.modal-content -->
+                                            <label class="control-label col-md-3">Provinsi</label>
+                                            <div class="col-md-9">
+                                                <input name="provinsi" id="provinsi" placeholder="Provinsi" class="form-control" type="text">
+                                                <span class="help-block"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" id="btnSave" onclick="save()" class="btn btn-primary">Save</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div><!-- /.modal-content -->
                     </div><!-- /.modal-dialog -->
                 </div><!-- /.modal -->
                 <!-- End Bootstrap modal -->
@@ -166,7 +101,7 @@
                                     <div class="portlet-title">
                                         <div class="caption">
                                             <i class="fa fa-cogs font-green-sharp"></i>
-                                            <span class="caption-subject font-green-sharp bold uppercase">Data Tagihan Awal</span>
+                                            <span class="caption-subject font-green-sharp bold uppercase">Data Pembayaran</span>
                                         </div>
                                         <div class="tools">
                                             <a href="javascript:;" class="collapse" data-original-title="" title="">
@@ -177,16 +112,15 @@
                                         <div class="table-toolbar">
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <div class="btn-group">
-                                                        <button class="btn btn-success" onclick="add_person()"><i class="glyphicon glyphicon-plus"></i> Tambah Data Tagihan Awal </button>
-
-                                                    </div>
+<!--                                                    <div class="btn-group">-->
+<!--                                                        <button class="btn btn-success" onclick="add_person()"><i class="glyphicon glyphicon-plus"></i> Tambah Perusahaan </button>-->
+<!---->
+<!--                                                    </div>-->
                                                     <div class="btn-group">
                                                         <button class="btn btn-default" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Reload Data </button>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6" align="right">
-
                                                 </div>
                                             </div>
                                         </div>
@@ -198,13 +132,8 @@
                                                     <tr>
                                                         <th>Action</th>
                                                         <th>Perusahaan</th>
-                                                        <th>Evaluator</th>
-                                                        <th>Periode Pemeriksaan</th>
-                                                        <th>Periode Tagihan</th>
-                                                        <th>No Tagihan I</th>
-                                                        <th>Tgl Tagihan I</th>
-                                                        <th>Nominal</th>
                                                         <th>Tipe</th>
+                                                        <th>Provinsi</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -252,18 +181,7 @@
     var table;
 
     $(document).ready(function() {
-        //datepicker
-        $('.datepicker').datepicker({
-            autoclose: true,
-            format: "yyyy-mm-dd",
-            todayHighlight: true,
-            orientation: "top auto",
-            todayBtn: true,
-            todayHighlight: true,
-        });
-        $('#periodtime').daterangepicker({
-            format: "yyyy-mm-dd"
-        });
+
         //datatables
         table = $('#table').DataTable({
             "processing": true, //Feature control the processing indicator.
@@ -272,9 +190,10 @@
 
             // Load data for the table's content from an Ajax source
             "ajax": {
-                "url": "<?php echo site_url('tagihan/tagihanawal/ajax_list')?>",
+                "url": "<?php echo site_url('perusahaan/dataperusahaan/ajax_list')?>",
                 "type": "POST"
             },
+
             //Set column definition initialisation properties.
             "columnDefs": [
                 {
@@ -286,37 +205,54 @@
         });
 
     });
-
-    function edit_tagihan(id)
+    function view_email(id)
     {
         save_method = 'update';
         $('#form')[0].reset(); // reset form on modals
         $('.form-group').removeClass('has-error'); // clear error class
         $('.help-block').empty(); // clear error string
-        $('#company_name').prop('disabled',true);
-        //$('#itemName').prop('disabled',true);
-        $('#itemName').hide();
-        $('span.select2').hide();
+
         //Ajax Load data from ajax
         $.ajax({
-            url : "<?php echo site_url('tagihan/tagihanawal/ajax_edit/')?>/" + id,
+            url : "<?php echo site_url('perusahaan/dataperusahaan/ajax_view_email/')?>/" + id,
+            type: "GET",
+            dataType: "JSON",
+            success: function(data)
+            {
+                $('[name="company_id"]').val(data.company_id);
+                $('[name="email"]').val(data.email);
+
+                $('#modal_form2').modal('show'); // show bootstrap modal when complete loaded
+                $('.modal-title').text('Email'); // Set title to Bootstrap modal title
+
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Error get data from ajax');
+            }
+        });
+    }
+    function edit_company(id)
+    {
+        save_method = 'update';
+        $('#form')[0].reset(); // reset form on modals
+        $('.form-group').removeClass('has-error'); // clear error class
+        $('.help-block').empty(); // clear error string
+
+        //Ajax Load data from ajax
+        $.ajax({
+            url : "<?php echo site_url('perusahaan/dataperusahaan/ajax_edit/')?>/" + id,
             type: "GET",
             dataType: "JSON",
             success: function(data)
             {
                 $('[name="id"]').val(data.id);
-                $('[name="company_name"]').val(data.company_name);
-                $('[name="pemeriksa"]').val(data.evaluator);
-                $('#periodtime').val(data.checking_period1+ ' - '+data.checking_period2);
-
-                $('[name="tahunpenagihan"]').val(data.billing_period);
-                $('[name="nosurat"]').val(data.billing_no);
-                $('[name="tanggaltagihan"]').val(data.billing_date);
-                $('[name="tipetagihan"]').val(data.billing_type);
-                $('[name="nominaltagihan"]').val(data.amount);
+                $('[name="nama"]').val(data.company_name);
+                $('[name="tipetagihan"]').val(data.legal_type);
+                $('[name="provinsi"]').val(data.province);
 
                 $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
-                $('.modal-title').text('Edit Tagihan'); // Set title to Bootstrap modal title
+                $('.modal-title').text('Edit Perusahaan'); // Set title to Bootstrap modal title
 
             },
             error: function (jqXHR, textStatus, errorThrown)
@@ -338,9 +274,9 @@
         var url;
 
         if(save_method == 'add') {
-            url = "<?php echo site_url('tagihan/tagihanawal/ajax_add')?>";
+            url = "<?php echo site_url('perusahaan/dataperusahaan/ajax_add')?>";
         } else {
-            url = "<?php echo site_url('tagihan/tagihanawal/ajax_update')?>";
+            url = "<?php echo site_url('perusahaan/dataperusahaan/ajax_update')?>";
         }
 
         // ajax adding data to database
@@ -385,7 +321,7 @@
         {
             // ajax delete data to database
             $.ajax({
-                url : "<?php echo site_url('tagihan/tagihanawal/ajax_delete')?>/"+id,
+                url : "<?php echo site_url('perusahaan/dataperusahaan/ajax_delete')?>/"+id,
                 type: "POST",
                 dataType: "JSON",
                 success: function(data)
@@ -411,11 +347,6 @@
         $('.form-group').removeClass('has-error'); // clear error class
         $('.help-block').empty(); // clear error string
         $('#modal_form').modal('show'); // show bootstrap modal
-        $('.modal-title').text('Tambah Tagihan'); // Set Title to Bootstrap modal title
-        $('#company_name').prop('disabled',false);
-        $('#company_name').hide();
-
-        $('#itemName').show();
-        $('span.select2').show();
+        $('.modal-title').text('Tambah Perusahaan'); // Set Title to Bootstrap modal title
     }
 </script>

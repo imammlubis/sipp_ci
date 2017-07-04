@@ -88,7 +88,6 @@ class User extends CI_Controller
 
                 if(!empty($user_id))
                 {
-
                     $this->user_create_activation_sendmail($input_data);
                     $this->session->set_flashdata('success','Activation link sent to your email. Please active.');
                     redirect('account/user/signup');
@@ -163,7 +162,8 @@ class User extends CI_Controller
     public function company()
     {
         check_user_sess();
-        $this->load->view('account/company');
+        $data ['main_content'] = 'dashboard_company';
+        $this->load->view('layout/MainLayout', $data);
     }
 
     /*

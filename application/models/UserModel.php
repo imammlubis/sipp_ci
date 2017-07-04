@@ -1,35 +1,28 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/**
- * Created by PhpStorm.
- * User: imam lubis
- * Date: 7/4/17
- * Time: 3:02 AM
- */
-class TagihanAwalModel extends CI_Model{
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-    var $table = 'tagihanawal';
-    var $column_order = array(null,'tagihanawal.evaluator, tagihanawal.checking_period1, tagihanawal.checking_period2,
-         tagihanawal.billing_period, tagihanawal.billing_no, tagihanawal.billing_date, tagihanawal.amount, tagihanawal.billing_type,
-         tagihanawal.company_id, company.company_name'); //set column field database for datatable orderable
-    var $column_search = array('company_name'); //set column field database for datatable searchable
-    var $order = array('tagihanawal.id' => 'asc'); // default order
+class UserModel extends CI_Model {
+
+    var $table = 'users';
+    var $column_order = array(null,'users.id', 'users.first_name','users.last_name','users.email', 'company.company_name'); //set column field database for datatable orderable
+    var $column_search = array('email'); //set column field database for datatable searchable
+    var $order = array('users.id' => 'asc'); // default order
 
     public function __construct()
     {
         parent::__construct();
         $this->load->database();
     }
+
     private function _get_datatables_query()
     {
-        $this->db->select('tagihanawal.id, tagihanawal.evaluator, tagihanawal.checking_period1, tagihanawal.checking_period2,
-         tagihanawal.billing_period, tagihanawal.billing_no, tagihanawal.billing_date, tagihanawal.amount, tagihanawal.billing_type,
-         tagihanawal.company_id, company.company_name, company.is_visible');
+        $this->db->select('users.id, users.first_name, users.last_name, users.email, users.status, company.company_name');
         $this->db->from($this->table);
-        $this->db->where('company.is_visible', 1);
-        $this->db->join('company', 'tagihanawal.company_id = company.id');
+        $this->db->where('role', 'company');
+        $this->db->join('company', 'users.id = company.user_id');
         $i = 0;
 
-        foreach ($this->column_search as $item) // loop column
+        foreach ($this->column_search as $item) // loop column 
         {
             if($_POST['search']['value']) // if datatable send POST for search
             {
@@ -78,26 +71,21 @@ class TagihanAwalModel extends CI_Model{
 
     public function count_all()
     {
-        $this->db->select('tagihanawal.id, tagihanawal.evaluator, tagihanawal.checking_period1, tagihanawal.checking_period2,
-         tagihanawal.billing_period, tagihanawal.billing_no, tagihanawal.billing_date, tagihanawal.amount, tagihanawal.billing_type,
-         tagihanawal.company_id, company.company_name, company.is_visible');
         $this->db->from($this->table);
-        $this->db->where('company.is_visible', 1);
-        $this->db->join('company', 'tagihanawal.company_id = company.id');
-
-//        $this->db->from($this->table);
-//        $this->db->where('role', 'company');
+        $this->db->where('role', 'company');
         return $this->db->count_all_results();
     }
     public function get_by_id($id)
     {
-        $this->db->select('tagihanawal.id, tagihanawal.evaluator, tagihanawal.checking_period1, tagihanawal.checking_period2,
-         tagihanawal.billing_period, tagihanawal.billing_no, tagihanawal.billing_date, tagihanawal.amount, tagihanawal.billing_type,
-         tagihanawal.company_id, company.company_name, company.is_visible');
+//        $this->db->from($this->table);
+//        $this->db->where('id',$id);
+//        $query = $this->db->get();
+
+        $this->db->select('users.id, users.first_name, users.last_name, users.email, users.status, company.company_name, company.id as companyid');
         $this->db->from($this->table);
-        $this->db->where('company.is_visible', 1);
-        $this->db->join('company', 'tagihanawal.company_id = company.id');
-        $this->db->where('tagihanawal.id',$id);
+        $this->db->where('role', 'company');
+        $this->db->join('company', 'users.id = company.user_id');
+        $this->db->where('users.id',$id);
         $query = $this->db->get();
         return $query->row();
     }

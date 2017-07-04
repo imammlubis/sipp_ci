@@ -169,7 +169,6 @@
                                                 <th>Perusahaan</th>
                                                 <th>Tipe</th>
                                                 <th>Provinsi</th>
-                                                <th>Email</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -255,7 +254,7 @@
             dataType: "JSON",
             success: function(data)
             {
-                $('[name="company_id"]').val(data.id);
+                $('[name="company_id"]').val(data.company_id);
                 $('[name="email"]').val(data.email);
 
                 $('#modal_form2').modal('show'); // show bootstrap modal when complete loaded
