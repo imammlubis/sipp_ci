@@ -237,7 +237,7 @@
     $('#itemName').select2({
         placeholder: '--Pilih Perusahaan--',
         ajax: {
-            url: 'tagihanawal/search',
+            url: 'TagihanAwal/search',
             dataType: 'json',
             delay: 250,
             processResults: function (data) {
@@ -272,7 +272,7 @@
 
             // Load data for the table's content from an Ajax source
             "ajax": {
-                "url": "<?php echo site_url('tagihan/tagihanawal/ajax_list')?>",
+                "url": "<?php echo site_url('tagihan/TagihanAwal/ajax_list')?>",
                 "type": "POST"
             },
             //Set column definition initialisation properties.
@@ -299,7 +299,7 @@
         $('span.select2').hide();
         //Ajax Load data from ajax
         $.ajax({
-            url : "<?php echo site_url('tagihan/tagihanawal/ajax_edit/')?>/" + id,
+            url : "<?php echo site_url('tagihan/TagihanAwal/ajax_edit/')?>/" + id,
             type: "GET",
             dataType: "JSON",
             success: function(data)
@@ -338,9 +338,9 @@
         var url;
 
         if(save_method == 'add') {
-            url = "<?php echo site_url('tagihan/tagihanawal/ajax_add')?>";
+            url = "<?php echo site_url('tagihan/TagihanAwal/ajax_add')?>";
         } else {
-            url = "<?php echo site_url('tagihan/tagihanawal/ajax_update')?>";
+            url = "<?php echo site_url('tagihan/TagihanAwal/ajax_update')?>";
         }
 
         // ajax adding data to database
@@ -385,7 +385,7 @@
         {
             // ajax delete data to database
             $.ajax({
-                url : "<?php echo site_url('tagihan/tagihanawal/ajax_delete')?>/"+id,
+                url : "<?php echo site_url('tagihan/TagihanAwal/ajax_delete')?>/"+id,
                 type: "POST",
                 dataType: "JSON",
                 success: function(data)

@@ -19,7 +19,39 @@ class Welcome extends CI_Controller {
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function index()
-	{
-		$this->load->view('welcome_message');
-	}
+    {
+        if(!empty($this->session->userdata('logged_in')))
+            redirect('account/user/home');
+        if(!empty($this->input->post()))
+        {
+            $this->form_validation->set_rules('email', 'Email', 'trim|required');
+            $this->form_validation->set_rules('password', 'Password', 'trim|required');
+            if ($this->form_validation->run() == FALSE)
+            {
+                $this->load->view('account/login');
+            }
+            else
+            {
+                $email = $this->input->post('email');
+                $password = $this->input->post('password');
+                $check_auth = $this->user_model->authenticate($email,$password);
+                if($check_auth == 'admin')
+                {
+                    redirect('account/user/home');
+                }
+                else if($check_auth == 'company')
+                {
+                    redirect('account/user/company');
+                }
+                else
+                {
+                    redirect('account/user');
+                }
+            }
+        }
+        else
+        {
+            $this->load->view('account/login');
+        }
+    }
 }

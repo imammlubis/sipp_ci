@@ -225,7 +225,7 @@
 
             // Load data for the table's content from an Ajax source
             "ajax": {
-                "url": "<?php echo site_url('perusahaan/dataperusahaan/ajax_list')?>",
+                "url": "<?php echo site_url('perusahaan/DataPerusahaan/ajax_list')?>",
                 "type": "POST"
             },
 
@@ -249,7 +249,7 @@
 
         //Ajax Load data from ajax
         $.ajax({
-            url : "<?php echo site_url('perusahaan/dataperusahaan/ajax_view_email/')?>/" + id,
+            url : "<?php echo site_url('perusahaan/DataPerusahaan/ajax_view_email/')?>/" + id,
             type: "GET",
             dataType: "JSON",
             success: function(data)
@@ -276,7 +276,7 @@
 
         //Ajax Load data from ajax
         $.ajax({
-            url : "<?php echo site_url('perusahaan/dataperusahaan/ajax_edit/')?>/" + id,
+            url : "<?php echo site_url('perusahaan/DataPerusahaan/ajax_edit/')?>/" + id,
             type: "GET",
             dataType: "JSON",
             success: function(data)
@@ -309,9 +309,9 @@
         var url;
 
         if(save_method == 'add') {
-            url = "<?php echo site_url('perusahaan/dataperusahaan/ajax_add')?>";
+            url = "<?php echo site_url('perusahaan/DataPerusahaan/ajax_add')?>";
         } else {
-            url = "<?php echo site_url('perusahaan/dataperusahaan/ajax_update')?>";
+            url = "<?php echo site_url('perusahaan/DataPerusahaan/ajax_update')?>";
         }
 
         // ajax adding data to database
@@ -356,7 +356,7 @@
         {
             // ajax delete data to database
             $.ajax({
-                url : "<?php echo site_url('perusahaan/dataperusahaan/ajax_delete')?>/"+id,
+                url : "<?php echo site_url('perusahaan/DataPerusahaan/ajax_delete')?>/"+id,
                 type: "POST",
                 dataType: "JSON",
                 success: function(data)

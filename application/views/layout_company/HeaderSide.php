@@ -65,7 +65,7 @@
                             <ul class="nav navbar-nav pull-right">
                                 <!-- BEGIN USER LOGIN DROPDOWN -->
                                 <li class="dropdown dropdown-user dropdown-dark">
-                                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                    <a href="<?php echo base_url('account/user/manage'); ?>" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                         <img alt="" class="img-circle" src="<?php echo base_url();?>application/assets/layouts/layout3/img/avatar9.jpg">
                                         <span class="username username-hide-mobile">
                                             <?php
@@ -108,37 +108,18 @@
                             <ul class="nav navbar-nav">
                                 <li class="menu-dropdown classic-menu-dropdown ">
                                     <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">
-                                        <i class="icon-briefcase"></i> Tagihan <i class="fa fa-angle-down"></i>
+                                        <i class="icon-briefcase"></i> Dashboard
                                     </a>
-                                    <ul class="dropdown-menu pull-left">
-                                        <li class=" ">
-                                            <a href="<?php echo base_url();?>tagihan/tagihanawal">
-                                                <i class="icon-bulb"></i> Tagihan Awal </a>
-                                        </li>
-<!--                                        <li class=" ">-->
-<!--                                            <a href="--><?php //echo base_url();?><!--DirektoratPTKDN/LaporanPenempatanAkad">-->
-<!--                                                <i class="icon-bulb"></i> Sisa Tagihan </a>-->
-<!--                                        </li>-->
-                                        <li class=" ">
-                                            <a href="<?php echo base_url();?>perusahaan/daftarpembayaran">
-                                                <i class="icon-bulb"></i> Daftar Pembayaran </a>
-                                        </li>
-
-                                    </ul>
                                 </li>
                                 <li class="menu-dropdown classic-menu-dropdown ">
                                     <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">
-                                     Perusahaan
+                                     Transaksi
                                         <i class="fa fa-angle-down"></i>
                                     </a>
                                     <ul class="dropdown-menu pull-left">
                                         <li class=" ">
-                                            <a href="<?php echo base_url();?>perusahaan/dataperusahaan">
-                                                <i class="icon-bulb"></i> Data Perusahaan </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="<?php echo base_url();?>perusahaan/datapengguna">
-                                                <i class="icon-bulb"></i> Data User </a>
+                                            <a href="<?php echo base_url();?>perusahaan/riwayattransaksi">
+                                                <i class="icon-bulb"></i> Transaksi Pembayaran </a>
                                         </li>
                                     </ul>
                                 </li>

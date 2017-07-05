@@ -163,9 +163,14 @@ class User extends CI_Controller
     {
         check_user_sess();
         $data ['main_content'] = 'dashboard_company';
-        $this->load->view('layout/MainLayout', $data);
+        $this->load->view('layout_company/MainLayout', $data);
     }
-
+    public function manage()
+    {
+        check_user_sess();
+        $data ['main_content'] = 'account/manageprofile';
+        $this->load->view('layout_company/MainLayout', $data);
+    }
     /*
     *   Forget password code.
     */

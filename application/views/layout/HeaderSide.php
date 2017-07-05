@@ -112,7 +112,7 @@
                                     </a>
                                     <ul class="dropdown-menu pull-left">
                                         <li class=" ">
-                                            <a href="<?php echo base_url();?>tagihan/tagihanawal">
+                                            <a href="<?php echo base_url();?>tagihan/TagihanAwal">
                                                 <i class="icon-bulb"></i> Tagihan Awal </a>
                                         </li>
 <!--                                        <li class=" ">-->
@@ -120,7 +120,7 @@
 <!--                                                <i class="icon-bulb"></i> Sisa Tagihan </a>-->
 <!--                                        </li>-->
                                         <li class=" ">
-                                            <a href="<?php echo base_url();?>perusahaan/daftarpembayaran">
+                                            <a href="<?php echo base_url();?>perusahaan/DaftarPembayaran">
                                                 <i class="icon-bulb"></i> Daftar Pembayaran </a>
                                         </li>
 

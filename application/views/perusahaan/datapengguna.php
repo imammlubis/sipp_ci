@@ -155,7 +155,7 @@
     $('#itemName').select2({
         placeholder: '--Pilih Perusahaan--',
         ajax: {
-            url: 'datapengguna/search',
+            url: 'DataPengguna/search',
             dataType: 'json',
             delay: 250,
             processResults: function (data) {
@@ -179,7 +179,7 @@
 
             // Load data for the table's content from an Ajax source
             "ajax": {
-                "url": "<?php echo site_url('perusahaan/datapengguna/ajax_list')?>",
+                "url": "<?php echo site_url('perusahaan/DataPengguna/ajax_list')?>",
                 "type": "POST"
             },
 
@@ -203,7 +203,7 @@
 
         //Ajax Load data from ajax
         $.ajax({
-            url : "<?php echo site_url('perusahaan/datapengguna/ajax_view_email/')?>/" + id,
+            url : "<?php echo site_url('perusahaan/DataPengguna/ajax_view_email/')?>/" + id,
             type: "GET",
             dataType: "JSON",
             success: function(data)
@@ -230,7 +230,7 @@
 
         //Ajax Load data from ajax
         $.ajax({
-            url : "<?php echo site_url('perusahaan/datapengguna/ajax_edit/')?>/" + id,
+            url : "<?php echo site_url('perusahaan/DataPengguna/ajax_edit/')?>/" + id,
             type: "GET",
             dataType: "JSON",
             success: function(data)
@@ -264,9 +264,9 @@
         var url;
 
         if(save_method == 'add') {
-            url = "<?php echo site_url('perusahaan/datapengguna/ajax_add')?>";
+            url = "<?php echo site_url('perusahaan/DataPengguna/ajax_add')?>";
         } else {
-            url = "<?php echo site_url('perusahaan/datapengguna/ajax_update')?>";
+            url = "<?php echo site_url('perusahaan/DataPengguna/ajax_update')?>";
         }
 
         // ajax adding data to database
@@ -311,7 +311,7 @@
         {
             // ajax delete data to database
             $.ajax({
-                url : "<?php echo site_url('perusahaan/datapengguna/ajax_delete')?>/"+id,
+                url : "<?php echo site_url('perusahaan/DataPengguna/ajax_delete')?>/"+id,
                 type: "POST",
                 dataType: "JSON",
                 success: function(data)
