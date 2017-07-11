@@ -46,7 +46,7 @@ class RiwayatTransaksi extends CI_Controller{
             //$row[] = $no;
             $row[] = number_format($billcredit->amount);
             $row[] = number_format($billcredit->nominaldollar);
-            $row[] = $billcredit->file_validation;
+            $row[] = '<a href='.base_url('uploads/'.$billcredit->file_validation).' target='.'_blank'.'>Link</a>';
             $row[] = $billcredit->objection_information;
             $row[] = $billcredit->created_date;
             $data[] = $row;

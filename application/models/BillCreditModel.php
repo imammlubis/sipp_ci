@@ -142,9 +142,9 @@ class BillCreditModel extends CI_Model {
 
         return $resultsum;
     }
-
     public function save($data)
     {
+        $this->db->set('created_date', date("Y-m-d H:i:s"));
         $this->db->insert($this->table, $data);
         return $this->db->insert_id();
     }

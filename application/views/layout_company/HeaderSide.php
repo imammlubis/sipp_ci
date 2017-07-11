@@ -107,7 +107,7 @@
                         <div class="hor-menu ">
                             <ul class="nav navbar-nav">
                                 <li class="menu-dropdown classic-menu-dropdown ">
-                                    <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">
+                                    <a href="<?php echo base_url();?>account/User/Company">
                                         <i class="icon-briefcase"></i> Dashboard
                                     </a>
                                 </li>
