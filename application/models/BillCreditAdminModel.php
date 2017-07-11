@@ -1,10 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class BillCreditModel extends CI_Model {
+class BillCreditAdminModel extends CI_Model {
 
     var $table = 'billcredit';
-    var $column_order = array(null,'amount', 'objection_information'); //set column field database for datatable orderable
+    var $column_order = array(null,'amount', 'company_name', 'objection_information'); //set column field database for datatable orderable
     var $column_search = array('amount'); //set column field database for datatable searchable
     var $order = array('id' => 'asc'); // default order
 
@@ -16,13 +16,13 @@ class BillCreditModel extends CI_Model {
 
     private function _get_datatables_query()
     {
-        $this->db->select('id');
-        $this->db->from('company');
-        $this->db->where('user_id', $this->session->userdata('logged_in')['user_id']);
-        $comp_id = $this->db->get()->row()->id;
-
+        $this->db->select('billcredit.id, billcredit.amount, billcredit.file_validation, billcredit.objection_information,
+        billcredit.is_approved, billcredit.company_id, billcredit.created_date, billcredit.nominaldollar, company.company_name');
         $this->db->from($this->table);
-        $this->db->where('company_id', $comp_id);
+        $this->db->where('company.is_visible', 1);
+        $this->db->where('billcredit.is_approved !=', 0);
+        $this->db->join('company', 'billcredit.company_id = company.id');
+
         $i = 0;
 
         foreach ($this->column_search as $item) // loop column 
@@ -74,19 +74,26 @@ class BillCreditModel extends CI_Model {
 
     public function count_all()
     {
-        $this->db->select('id');
-        $this->db->from('company');
-        $this->db->where('user_id', $this->session->userdata('logged_in')['user_id']);
-        $comp_id = $this->db->get()->row()->id;
+        $this->db->select('billcredit.id, billcredit.amount, billcredit.file_validation, billcredit.objection_information,
+        billcredit.is_approved, billcredit.company_id, billcredit.created_date, billcredit.nominaldollar, company.company_name');
 
         $this->db->from($this->table);
-        $this->db->where('company_id', $comp_id);
+        $this->db->where('company.is_visible', 1);
+        $this->db->where('billcredit.is_approved !=', 0);
+        $this->db->join('company', 'billcredit.company_id = company.id');
         return $this->db->count_all_results();
     }
     public function get_by_id($id)
     {
+        $this->db->select('billcredit.id, billcredit.amount, billcredit.file_validation, billcredit.objection_information,
+        billcredit.is_approved, billcredit.company_id, billcredit.created_date, billcredit.nominaldollar, company.company_name');
+
         $this->db->from($this->table);
-        $this->db->where('id',$id);
+
+        $this->db->where('company.is_visible', 1);
+        $this->db->join('company', 'billcredit.company_id = company.id');
+
+        $this->db->where('billcredit.id',$id);
         $query = $this->db->get();
 
         return $query->row();
@@ -142,15 +149,19 @@ class BillCreditModel extends CI_Model {
 
         return $resultsum;
     }
-
     public function save($data)
     {
-        $this->db->set('created_date', date("Y-m-d"));
+        $this->db->set('created_date', date("Y-m-d H:i:s"));
         $this->db->insert($this->table, $data);
         return $this->db->insert_id();
     }
 
     public function update($where, $data)
+    {
+        $this->db->update($this->table, $data, $where);
+        return $this->db->affected_rows();
+    }
+    public function approve($where, $data)
     {
         $this->db->update($this->table, $data, $where);
         return $this->db->affected_rows();

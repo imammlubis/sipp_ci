@@ -1,5 +1,10 @@
 
+
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<!--Swal-->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.min.js"></script>
+<!--End Swal-->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 <div class="page-container">
@@ -44,37 +49,60 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h3 class="modal-title">Form Pembayaran</h3>
+                                <h3 class="modal-title">Form Perusahaan</h3>
                             </div>
                             <div class="modal-body form">
-                                <form action="#" id="form" class="form-horizontal">
+                                <form action="<?php echo base_url('perusahaan/DaftarPembayaran/ajax_add');?>"
+                                      id="form" class="form-horizontal" enctype="multipart/form-data" method="post">
                                     <input type="hidden" value="" name="id"/>
                                     <div class="form-body">
                                         <div class="form-group">
-                                            <label class="control-label col-md-3">Nama Perusahaan</label>
+                                            <label class="control-label col-md-3">Jumlah Piutang (IDR) </label>
                                             <div class="col-md-9">
-                                                <input name="nama" id="nama" placeholder="Nama Perusahaan" class="form-control" type="text">
+                                                <input name="jumlah" id="jumlah" placeholder="Jumlah Piutang"
+                                                       class="form-control" type="text" disabled="disabled">
                                                 <span class="help-block"></span>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label col-md-3">Tipe</label>
+                                            <label class="control-label col-md-3">Jumlah Piutang (USD) </label>
                                             <div class="col-md-9">
-                                                <select class="form-control"
-                                                        name="tipetagihan" id="tipetagihan">
-                                                    <option value="">- Silahkan Pilih  -</option>
-                                                    <option value="IUP">IUP</option>
-                                                    <option value="PKP2B">PKP2B</option>
-                                                    <option value="KK">KK</option>
-                                                </select>
+                                                <input name="jumlahusd" id="jumlahusd" placeholder="Jumlah Piutang"
+                                                       class="form-control" type="text" disabled="disabled">
                                                 <span class="help-block"></span>
                                             </div>
                                         </div>
-
                                         <div class="form-group">
-                                            <label class="control-label col-md-3">Provinsi</label>
+                                            <label class="control-label col-md-3">Nominal Pembayaran (IDR)</label>
                                             <div class="col-md-9">
-                                                <input name="provinsi" id="provinsi" placeholder="Provinsi" class="form-control" type="text">
+                                                <input name="nominal" id="nominal"
+                                                       placeholder="Nominal Pembayaran (IDR)" class="form-control" type="number">
+                                                <span class="help-block"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">Nominal Pembayaran (USD)</label>
+                                            <div class="col-md-9">
+                                                <input name="nominaldollar" id="nominaldollar"
+                                                       placeholder="Nominal Pembayaran (USD)" class="form-control" type="number">
+                                                <span class="help-block"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">Foto / Scan Bukti Pembayaran</label>
+                                            <div class="col-md-9">
+                                                <input name="image" id="image" placeholder="Foto / Scan"
+                                                       class="form-control" type="file">
+                                                <span class="help-block"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">Keterangan apabila keberatan atas tagihan</label>
+                                            <div class="col-md-9">
+                                                <textarea name="keterangan" id="keterangan"
+                                                          placeholder="Keterangan apabila keberatan atas tagihan"
+                                                          class="form-control" rows="5">
+                                                </textarea>
                                                 <span class="help-block"></span>
                                             </div>
                                         </div>
@@ -101,7 +129,7 @@
                                     <div class="portlet-title">
                                         <div class="caption">
                                             <i class="fa fa-cogs font-green-sharp"></i>
-                                            <span class="caption-subject font-green-sharp bold uppercase">Data Pembayaran</span>
+                                            <span class="caption-subject font-green-sharp bold uppercase">Daftar Pembayaran</span>
                                         </div>
                                         <div class="tools">
                                             <a href="javascript:;" class="collapse" data-original-title="" title="">
@@ -109,21 +137,7 @@
                                         </div>
                                     </div>
                                     <div class="portlet-body">
-                                        <div class="table-toolbar">
-                                            <div class="row">
-                                                <div class="col-md-6">
-<!--                                                    <div class="btn-group">-->
-<!--                                                        <button class="btn btn-success" onclick="add_person()"><i class="glyphicon glyphicon-plus"></i> Tambah Perusahaan </button>-->
-<!---->
-<!--                                                    </div>-->
-                                                    <div class="btn-group">
-                                                        <button class="btn btn-default" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Reload Data </button>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6" align="right">
-                                                </div>
-                                            </div>
-                                        </div>
+
                                         <div id="sample_1_wrapper" class="dataTables_wrapper no-footer">
                                             <div class="table-scrollable">
                                                 <table id="table" class="table table-striped table-bordered table-condensed"
@@ -131,9 +145,11 @@
                                                     <thead>
                                                     <tr>
                                                         <th>Action</th>
-                                                        <th>Perusahaan</th>
-                                                        <th>Tipe</th>
-                                                        <th>Provinsi</th>
+                                                        <th>Nominal Pembayaran (IDR)</th>
+                                                        <th>Nominal Pembayaran (USD)</th>
+                                                        <th>File</th>
+                                                        <th>Keterangan</th>
+                                                        <th>Tanggal Bayar</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -163,190 +179,312 @@
     <!-- END CONTENT -->
 </div>
 <script type="text/javascript">
-    $('#itemName').select2({
-        placeholder: '--Pilih Perusahaan--',
-        ajax: {
-            url: 'tagihanawal/search',
-            dataType: 'json',
-            delay: 250,
-            processResults: function (data) {
-                return {
-                    results: data
-                };
+$('#itemName').select2({
+    placeholder: '--Pilih Perusahaan--',
+    ajax: {
+        url: 'tagihanawal/search',
+        dataType: 'json',
+        delay: 250,
+        processResults: function (data) {
+            return {
+                results: data
+            };
+        },
+        cache: true
+    }
+});
+// function of datatables
+var table;
+
+$(document).ready(function() {
+
+    //datatables
+    table = $('#table').DataTable({
+        "processing": true, //Feature control the processing indicator.
+        "serverSide": true, //Feature control DataTables' server-side processing mode.
+        "order": [], //Initial no order.
+
+        // Load data for the table's content from an Ajax source
+        "ajax": {
+            "url": "<?php echo site_url('perusahaan/DaftarPembayaran/ajax_list')?>",
+            "type": "POST"
+        },
+
+        //Set column definition initialisation properties.
+        "columnDefs": [
+            {
+                "targets": [ 0 ], //first column / numbering column
+                "orderable": true //set not orderable
             },
-            cache: true
-        }
-    });
-    // function of datatables
-    var table;
-
-    $(document).ready(function() {
-
-        //datatables
-        table = $('#table').DataTable({
-            "processing": true, //Feature control the processing indicator.
-            "serverSide": true, //Feature control DataTables' server-side processing mode.
-            "order": [], //Initial no order.
-
-            // Load data for the table's content from an Ajax source
-            "ajax": {
-                "url": "<?php echo site_url('perusahaan/DataPerusahaan/ajax_list')?>",
-                "type": "POST"
-            },
-
-            //Set column definition initialisation properties.
-            "columnDefs": [
-                {
-                    "targets": [ 0 ], //first column / numbering column
-                    "orderable": true //set not orderable
-                },
-            ],
-
-        });
+        ]
 
     });
-    function view_email(id)
-    {
-        save_method = 'update';
-        $('#form')[0].reset(); // reset form on modals
-        $('.form-group').removeClass('has-error'); // clear error class
-        $('.help-block').empty(); // clear error string
 
-        //Ajax Load data from ajax
-        $.ajax({
-            url : "<?php echo site_url('perusahaan/DataPerusahaan/ajax_view_email/')?>/" + id,
-            type: "GET",
-            dataType: "JSON",
-            success: function(data)
-            {
-                $('[name="company_id"]').val(data.company_id);
-                $('[name="email"]').val(data.email);
+});
+function view_email(id)
+{
+    save_method = 'update';
+    $('#form')[0].reset(); // reset form on modals
+    $('.form-group').removeClass('has-error'); // clear error class
+    $('.help-block').empty(); // clear error string
 
-                $('#modal_form2').modal('show'); // show bootstrap modal when complete loaded
-                $('.modal-title').text('Email'); // Set title to Bootstrap modal title
-
-            },
-            error: function (jqXHR, textStatus, errorThrown)
-            {
-                alert('Error get data from ajax');
-            }
-        });
-    }
-    function edit_company(id)
-    {
-        save_method = 'update';
-        $('#form')[0].reset(); // reset form on modals
-        $('.form-group').removeClass('has-error'); // clear error class
-        $('.help-block').empty(); // clear error string
-
-        //Ajax Load data from ajax
-        $.ajax({
-            url : "<?php echo site_url('perusahaan/DataPerusahaan/ajax_edit/')?>/" + id,
-            type: "GET",
-            dataType: "JSON",
-            success: function(data)
-            {
-                $('[name="id"]').val(data.id);
-                $('[name="nama"]').val(data.company_name);
-                $('[name="tipetagihan"]').val(data.legal_type);
-                $('[name="provinsi"]').val(data.province);
-
-                $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
-                $('.modal-title').text('Edit Perusahaan'); // Set title to Bootstrap modal title
-
-            },
-            error: function (jqXHR, textStatus, errorThrown)
-            {
-                alert('Error get data from ajax');
-            }
-        });
-    }
-
-    function reload_table()
-    {
-        table.ajax.reload(null,false); //reload datatable ajax
-    }
-
-    function save()
-    {
-        $('#btnSave').text('saving...'); //change button text
-        $('#btnSave').attr('disabled',true); //set button disable
-        var url;
-
-        if(save_method == 'add') {
-            url = "<?php echo site_url('perusahaan/DataPerusahaan/ajax_add')?>";
-        } else {
-            url = "<?php echo site_url('perusahaan/DataPerusahaan/ajax_update')?>";
-        }
-
-        // ajax adding data to database
-        $.ajax({
-            url : url,
-            type: "POST",
-            data: $('#form').serialize(),
-            dataType: "JSON",
-            success: function(data)
-            {
-                if(data.status) //if success close modal and reload ajax table
-                {
-                    $('#modal_form').modal('hide');
-                    reload_table();
-                }
-                else
-                {
-                    for (var i = 0; i < data.inputerror.length; i++)
-                    {
-                        $('[name="'+data.inputerror[i]+'"]').parent().parent().addClass('has-error'); //select parent twice to select div form-group class and add has-error class
-                        $('[name="'+data.inputerror[i]+'"]').next().text(data.error_string[i]); //select span help-block class set text error string
-                    }
-                }
-                $('#btnSave').text('save'); //change button text
-                $('#btnSave').attr('disabled',false); //set button enable
-
-
-            },
-            error: function (jqXHR, textStatus, errorThrown)
-            {
-                alert('Error adding / update data');
-                $('#btnSave').text('save'); //change button text
-                $('#btnSave').attr('disabled',false); //set button enable
-
-            }
-        });
-    }
-
-    function delete_company(id)
-    {
-        if(confirm('Are you sure delete this data?'))
+    //Ajax Load data from ajax
+    $.ajax({
+        url : "<?php echo site_url('perusahaan/DaftarPembayaran/ajax_view_email/')?>/" + id,
+        type: "GET",
+        dataType: "JSON",
+        success: function(data)
         {
-            // ajax delete data to database
-            $.ajax({
-                url : "<?php echo site_url('perusahaan/DataPerusahaan/ajax_delete')?>/"+id,
-                type: "POST",
-                dataType: "JSON",
-                success: function(data)
+            $('[name="company_id"]').val(data.company_id);
+            $('[name="email"]').val(data.email);
+
+            $('#modal_form2').modal('show'); // show bootstrap modal when complete loaded
+            $('.modal-title').text('Email'); // Set title to Bootstrap modal title
+
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error get data from ajax');
+        }
+    });
+}
+function edit_company(id)
+{
+    save_method = 'update';
+    $('#form')[0].reset(); // reset form on modals
+    $('.form-group').removeClass('has-error'); // clear error class
+    $('.help-block').empty(); // clear error string
+
+    //Ajax Load data from ajax
+    $.ajax({
+        url : "<?php echo site_url('perusahaan/DaftarPembayaran/ajax_edit/')?>/" + id,
+        type: "GET",
+        dataType: "JSON",
+        success: function(data)
+        {
+            $('[name="id"]').val(data.id);
+            $('[name="nama"]').val(data.company_name);
+            $('[name="tipetagihan"]').val(data.legal_type);
+            $('[name="provinsi"]').val(data.province);
+            $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
+            $('.modal-title').text('Edit Perusahaan'); // Set title to Bootstrap modal title
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error get data from ajax');
+        }
+    });
+}
+
+function reload_table()
+{
+    table.ajax.reload(null,false); //reload datatable ajax
+}
+
+function save()
+{
+    $('#btnSave').text('saving...'); //change button text
+    $('#btnSave').attr('disabled',true); //set button disable
+    var url;
+    //var formData = new FormData($(this)[0]);
+//        var formData = new FormData( $("#modal_form")[0] );
+    if(save_method == 'add') {
+        url = "<?php echo site_url('perusahaan/DaftarPembayaran/ajax_add')?>";
+    } else {
+        url = "<?php echo site_url('perusahaan/DaftarPembayaran/ajax_update')?>";
+    }
+    $.each($('image'[0]).files, function(i, file){
+        data.append('image', file);
+    });
+    // ajax adding data to database
+    $.ajax({
+        url : url,
+        type: "POST",
+        //data: formData,
+        data: $('#form').serialize(),
+        dataType: "JSON",
+//            contentType : false,
+//            processData : false,
+        success: function(data)
+        {
+            if(data.status) //if success close modal and reload ajax table
+            {
+                $('#modal_form').modal('hide');
+                reload_table();
+            }
+            else
+            {
+                for (var i = 0; i < data.inputerror.length; i++)
                 {
-                    //if success reload ajax table
-                    $('#modal_form').modal('hide');
-                    reload_table();
-                },
-                error: function (jqXHR, textStatus, errorThrown)
-                {
-                    alert('Error deleting data');
+                    $('[name="'+data.inputerror[i]+'"]').parent().parent().addClass('has-error'); //select parent twice to select div form-group class and add has-error class
+                    $('[name="'+data.inputerror[i]+'"]').next().text(data.error_string[i]); //select span help-block class set text error string
                 }
-            });
+            }
+            $('#btnSave').text('save'); //change button text
+            $('#btnSave').attr('disabled',false); //set button enable
+
+
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error adding / update data');
+            $('#btnSave').text('save'); //change button text
+            $('#btnSave').attr('disabled',false); //set button enable
 
         }
-    }
+    });
+}
 
-
-    function add_person()
+function delete_company(id)
+{
+    if(confirm('Are you sure delete this data?'))
     {
-        save_method = 'add';
-        $('#form')[0].reset(); // reset form on modals
-        $('.form-group').removeClass('has-error'); // clear error class
-        $('.help-block').empty(); // clear error string
-        $('#modal_form').modal('show'); // show bootstrap modal
-        $('.modal-title').text('Tambah Perusahaan'); // Set Title to Bootstrap modal title
+        // ajax delete data to database
+        $.ajax({
+            url : "<?php echo site_url('perusahaan/DaftarPembayaran/ajax_delete')?>/"+id,
+            type: "POST",
+            dataType: "JSON",
+            success: function(data)
+            {
+                //if success reload ajax table
+                $('#modal_form').modal('hide');
+                reload_table();
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Error deleting data');
+            }
+        });
+
     }
+}
+
+function respond(id)
+{
+    $.ajax({
+        url : "<?php echo site_url('perusahaan/DaftarPembayaran/ajax_edit/')?>/" + id,
+        type: "GET",
+        dataType: "JSON",
+        success: function(data)
+        {
+            swal({
+                title: 'Verifikasi Pembayaran ',
+                text: 'Verifikasi Pembayaran ' + data.company_name,
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Approve',
+                cancelButtonText: 'Reject'
+            }).then(function () {
+                approve(id);
+//                swal(
+//                    'Deleted!',
+//                    'Your file has been deleted.',
+//                    'success'
+//                )
+            }, function (dismiss) {
+                // dismiss can be 'cancel', 'overlay',
+                // 'close', and 'timer'
+                if (dismiss === 'cancel') {
+                    reject(id);
+//                    swal(
+//                        'Cancelled',
+//                        'Your imaginary file is safe :)',
+//                        'error'
+//                    )
+                }
+            })
+
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error get data from ajax');
+        }
+    });
+}
+function approve(id)
+{
+    $.ajax({
+        url : "<?php echo site_url('perusahaan/DaftarPembayaran/approve')?>/"+id,
+        type: "POST",
+        dataType: "JSON",
+        success: function(data)
+        {
+            debugger;
+            swal(
+                'Approved!',
+                'Your data has been approved.',
+                'success'
+            )
+            //if success reload ajax table
+            reload_table();
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error approving data');
+        }
+    });
+}
+function reject(id){
+    $.ajax({
+        url : "<?php echo site_url('perusahaan/DaftarPembayaran/reject')?>/"+id,
+        type: "POST",
+        dataType: "JSON",
+        success: function(data)
+        {
+            debugger;
+            swal(
+                'Rejected!',
+                'Your data has been rejected.',
+                'error'
+            )
+            //if success reload ajax table
+            reload_table();
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error rejecting data');
+        }
+    });
+}
+
+function add_person()
+{
+    save_method = 'add';
+    $('#form')[0].reset(); // reset form on modals
+    $('.form-group').removeClass('has-error'); // clear error class
+    $('.help-block').empty(); // clear error string
+    $('#modal_form').modal('show'); // show bootstrap modal
+    $('.modal-title').text('Bayar Tagihan'); // Set Title to Bootstrap modal title
+    $('#nominal').val(0);
+    $('#nominaldollar').val(0);
+    $('#keterangan').val('');
+    $.ajax({
+        url : "<?php echo site_url('perusahaan/DaftarPembayaran/get_piutang/')?>",
+        type: "GET",
+        dataType: "JSON",
+        success: function(data)
+        {
+            $('#jumlah').val(data)
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error get data from ajax');
+        }
+    });
+    $.ajax({
+        url : "<?php echo site_url('perusahaan/DaftarPembayaran/get_piutang_dollar/')?>",
+        type: "GET",
+        dataType: "JSON",
+        success: function(data2)
+        {
+            $('#jumlahusd').val(data2)
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error get data from ajax '.errorThrown);
+        }
+    });
+}
 </script>

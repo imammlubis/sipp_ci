@@ -48,6 +48,7 @@ class RiwayatTransaksi extends CI_Controller{
             $row[] = number_format($billcredit->nominaldollar);
             $row[] = '<a href='.base_url('uploads/'.$billcredit->file_validation).' target='.'_blank'.'>Link</a>';
             $row[] = $billcredit->objection_information;
+            //$row[] = $billcredit->is_approved == 1 ? 'Approved' : $billcredit->is_approved == 2 ? 'Rejected' : 'Belum diverifikasi';
             $row[] = $billcredit->created_date;
             $data[] = $row;
         }
@@ -84,9 +85,6 @@ class RiwayatTransaksi extends CI_Controller{
     {
         $config['upload_path']          = './uploads/';
         $config['allowed_types']        = 'jpg|png|pdf';
-//        $config['max_size']             = 100;
-//        $config['max_width']            = 1024;
-//        $config['max_height']           = 768;
         $this->load->library('upload', $config);
 
         $this->db->select('id');

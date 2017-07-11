@@ -56,7 +56,9 @@
                                             <div class="col-md-9">
                                                 <select class="itemName form-control input-circle" style="width:370px"
                                                         id="itemName" name="itemName"></select>
-                                                <input type="text" id="company_name" name="company_name" class="form-control" placeholder="Perusahaan" disabled="disabled">
+                                                <input type="text" id="company_name"
+                                                       name="company_name" class="form-control"
+                                                       placeholder="Perusahaan" disabled="disabled">
                                                 <span class="help-block"></span>
                                             </div>
                                         </div>
@@ -231,6 +233,7 @@
         $('.help-block').empty(); // clear error string
 
         $('#company_name').prop('disabled',true);
+        $('#company_name').show();
         $('#itemName').hide();
         $('span.select2').hide();
         //Ajax Load data from ajax
@@ -240,7 +243,6 @@
             dataType: "JSON",
             success: function(data)
             {
-                debugger;
                 $('[name="id"]').val(data.id);
                 $('[name="idx"]').val(data.companyid);
                 $('[name="company_name"]').val(data.company_name);

@@ -52,7 +52,7 @@
                     <div class="container">
                         <!-- BEGIN LOGO -->
                         <div class="page-logo">
-                            <a href="<?php echo base_url();?>">
+                            <a href="<?php echo base_url();?>account/User/home">
                                 <img src="http://104.215.255.122:82/Content/assets/layouts/img/logo_ESDM.png" alt="logo" class="logo-default">
                             </a>
                         </div>
@@ -123,7 +123,10 @@
                                             <a href="<?php echo base_url();?>perusahaan/DaftarPembayaran">
                                                 <i class="icon-bulb"></i> Daftar Pembayaran </a>
                                         </li>
-
+                                        <li class=" ">
+                                            <a href="<?php echo base_url();?>perusahaan/ApprovedRejectedPage">
+                                                <i class="icon-bulb"></i> Daftar Pembayaran Diapprove & Direject </a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <li class="menu-dropdown classic-menu-dropdown ">
@@ -139,6 +142,18 @@
                                         <li class=" ">
                                             <a href="<?php echo base_url();?>perusahaan/datapengguna">
                                                 <i class="icon-bulb"></i> Data User </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="menu-dropdown classic-menu-dropdown ">
+                                    <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">
+                                        Laporan
+                                        <i class="fa fa-angle-down"></i>
+                                    </a>
+                                    <ul class="dropdown-menu pull-left">
+                                        <li class=" ">
+                                            <a href="<?php echo base_url();?>laporan/LaporanPiutang">
+                                                <i class="icon-bulb"></i> Laporan Piutang </a>
                                         </li>
                                     </ul>
                                 </li>

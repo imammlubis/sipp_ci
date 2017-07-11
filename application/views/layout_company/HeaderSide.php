@@ -52,7 +52,7 @@
                     <div class="container">
                         <!-- BEGIN LOGO -->
                         <div class="page-logo">
-                            <a href="<?php echo base_url();?>">
+                            <a href="<?php echo base_url();?>account/User/Company">
                                 <img src="http://104.215.255.122:82/Content/assets/layouts/img/logo_ESDM.png" alt="logo" class="logo-default">
                             </a>
                         </div>

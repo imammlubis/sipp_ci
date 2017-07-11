@@ -22,6 +22,8 @@ class bayartagihan extends CI_Controller{
         $this->load->model('BillCreditModel');
     }
     function index(){
+        error_reporting(0);
+        ini_set('display_errors', 0);
         check_user_sess();
 //        $this->load->view('account/home');
         if($this->session->userdata('logged_in'))
@@ -129,8 +131,12 @@ class bayartagihan extends CI_Controller{
     }
     public function get_piutang()
     {
+        try{
         $data = $this->BillCreditModel->get_piutang_by_company_id();
         return number_format($data);
+        }catch (Exception $ex){
+            0;
+        }
         //echo json_encode(number_format($data));
     }
     public function get_piutang_dollar()

@@ -1,5 +1,10 @@
 
+
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<!--Swal-->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.min.js"></script>
+<!--End Swal-->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 <div class="page-container">
@@ -11,7 +16,7 @@
             <div class="container">
                 <!-- BEGIN PAGE TITLE -->
                 <div class="page-title">
-                    <h1>Transaksi Pembayaran
+                    <h1>Daftar Pembayaran Diapprove & Direject
                         <!--small>dashboard &amp; statistics</small-->
                     </h1>
                 </div>
@@ -29,11 +34,11 @@
                         <i class="fa fa-circle"></i>
                     </li>
                     <li>
-                        <span>Transaksi</span>
+                        <span>Tagihan</span>
                         <i class="fa fa-circle"></i>
                     </li>
                     <li>
-                        <span>Transaksi Pembayaran</span>
+                        <span>Daftar Pembayaran Diapprove & Direject</span>
                     </li>
                 </ul>
                 <!-- END PAGE BREADCRUMBS -->
@@ -47,7 +52,7 @@
                                 <h3 class="modal-title">Form Perusahaan</h3>
                             </div>
                             <div class="modal-body form">
-                                <form action="<?php echo base_url('perusahaan/RiwayatTransaksi/ajax_add');?>"
+                                <form action="<?php echo base_url('perusahaan/ApprovedRejectedPage/ajax_add');?>"
                                       id="form" class="form-horizontal" enctype="multipart/form-data" method="post">
                                     <input type="hidden" value="" name="id"/>
                                     <div class="form-body">
@@ -96,8 +101,8 @@
                                             <div class="col-md-9">
                                                 <textarea name="keterangan" id="keterangan"
                                                           placeholder="Keterangan apabila keberatan atas tagihan"
-                                                       class="form-control" rows="5">
-                                                    </textarea>
+                                                          class="form-control" rows="5">
+                                                </textarea>
                                                 <span class="help-block"></span>
                                             </div>
                                         </div>
@@ -124,7 +129,7 @@
                                     <div class="portlet-title">
                                         <div class="caption">
                                             <i class="fa fa-cogs font-green-sharp"></i>
-                                            <span class="caption-subject font-green-sharp bold uppercase">Transaksi Pembayaran</span>
+                                            <span class="caption-subject font-green-sharp bold uppercase">Daftar Pembayaran Diapprove & Direject</span>
                                         </div>
                                         <div class="tools">
                                             <a href="javascript:;" class="collapse" data-original-title="" title="">
@@ -132,18 +137,19 @@
                                         </div>
                                     </div>
                                     <div class="portlet-body">
-                                        
+
                                         <div id="sample_1_wrapper" class="dataTables_wrapper no-footer">
                                             <div class="table-scrollable">
                                                 <table id="table" class="table table-striped table-bordered table-condensed"
                                                        cellspacing="0" width="100%">
                                                     <thead>
                                                     <tr>
+                                                        <th>Perusahaan</th>
                                                         <th>Nominal Pembayaran (IDR)</th>
                                                         <th>Nominal Pembayaran (USD)</th>
                                                         <th>File</th>
                                                         <th>Keterangan</th>
-<!--                                                        <th>Status</th>-->
+                                                        <th>Status Verifikasi</th>
                                                         <th>Tanggal Bayar</th>
                                                     </tr>
                                                     </thead>
@@ -174,223 +180,289 @@
     <!-- END CONTENT -->
 </div>
 <script type="text/javascript">
-    $('#itemName').select2({
-        placeholder: '--Pilih Perusahaan--',
-        ajax: {
-            url: 'tagihanawal/search',
-            dataType: 'json',
-            delay: 250,
-            processResults: function (data) {
-                return {
-                    results: data
-                };
+$('#itemName').select2({
+    placeholder: '--Pilih Perusahaan--',
+    ajax: {
+        url: 'tagihanawal/search',
+        dataType: 'json',
+        delay: 250,
+        processResults: function (data) {
+            return {
+                results: data
+            };
+        },
+        cache: true
+    }
+});
+// function of datatables
+var table;
+
+$(document).ready(function() {
+
+    //datatables
+    table = $('#table').DataTable({
+        "processing": true, //Feature control the processing indicator.
+        "serverSide": true, //Feature control DataTables' server-side processing mode.
+        "order": [], //Initial no order.
+
+        // Load data for the table's content from an Ajax source
+        "ajax": {
+            "url": "<?php echo site_url('perusahaan/ApprovedRejectedPage/ajax_list')?>",
+            "type": "POST"
+        },
+
+        //Set column definition initialisation properties.
+        "columnDefs": [
+            {
+                "targets": [ 0 ], //first column / numbering column
+                "orderable": true //set not orderable
             },
-            cache: true
+        ]
+
+    });
+
+});
+function view_email(id)
+{
+    save_method = 'update';
+    $('#form')[0].reset(); // reset form on modals
+    $('.form-group').removeClass('has-error'); // clear error class
+    $('.help-block').empty(); // clear error string
+
+    //Ajax Load data from ajax
+    $.ajax({
+        url : "<?php echo site_url('perusahaan/ApprovedRejectedPage/ajax_view_email/')?>/" + id,
+        type: "GET",
+        dataType: "JSON",
+        success: function(data)
+        {
+            $('[name="company_id"]').val(data.company_id);
+            $('[name="email"]').val(data.email);
+
+            $('#modal_form2').modal('show'); // show bootstrap modal when complete loaded
+            $('.modal-title').text('Email'); // Set title to Bootstrap modal title
+
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error get data from ajax');
         }
     });
-    // function of datatables
-    var table;
+}
+function edit_company(id)
+{
+    save_method = 'update';
+    $('#form')[0].reset(); // reset form on modals
+    $('.form-group').removeClass('has-error'); // clear error class
+    $('.help-block').empty(); // clear error string
 
-    $(document).ready(function() {
-
-        //datatables
-        table = $('#table').DataTable({
-            "processing": true, //Feature control the processing indicator.
-            "serverSide": true, //Feature control DataTables' server-side processing mode.
-            "order": [], //Initial no order.
-
-            // Load data for the table's content from an Ajax source
-            "ajax": {
-                "url": "<?php echo site_url('perusahaan/RiwayatTransaksi/ajax_list')?>",
-                "type": "POST"
-            },
-
-            //Set column definition initialisation properties.
-            "columnDefs": [
-                {
-                    "targets": [ 0 ], //first column / numbering column
-                    "orderable": true //set not orderable
-                },
-            ],
-
-        });
-
+    //Ajax Load data from ajax
+    $.ajax({
+        url : "<?php echo site_url('perusahaan/ApprovedRejectedPage/ajax_edit/')?>/" + id,
+        type: "GET",
+        dataType: "JSON",
+        success: function(data)
+        {
+            $('[name="id"]').val(data.id);
+            $('[name="nama"]').val(data.company_name);
+            $('[name="tipetagihan"]').val(data.legal_type);
+            $('[name="provinsi"]').val(data.province);
+            $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
+            $('.modal-title').text('Edit Perusahaan'); // Set title to Bootstrap modal title
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error get data from ajax');
+        }
     });
-    function view_email(id)
-    {
-        save_method = 'update';
-        $('#form')[0].reset(); // reset form on modals
-        $('.form-group').removeClass('has-error'); // clear error class
-        $('.help-block').empty(); // clear error string
+}
 
-        //Ajax Load data from ajax
-        $.ajax({
-            url : "<?php echo site_url('perusahaan/RiwayatTransaksi/ajax_view_email/')?>/" + id,
-            type: "GET",
-            dataType: "JSON",
-            success: function(data)
-            {
-                $('[name="company_id"]').val(data.company_id);
-                $('[name="email"]').val(data.email);
+function reload_table()
+{
+    table.ajax.reload(null,false); //reload datatable ajax
+}
 
-                $('#modal_form2').modal('show'); // show bootstrap modal when complete loaded
-                $('.modal-title').text('Email'); // Set title to Bootstrap modal title
-
-            },
-            error: function (jqXHR, textStatus, errorThrown)
-            {
-                alert('Error get data from ajax');
-            }
-        });
-    }
-    function edit_company(id)
-    {
-        save_method = 'update';
-        $('#form')[0].reset(); // reset form on modals
-        $('.form-group').removeClass('has-error'); // clear error class
-        $('.help-block').empty(); // clear error string
-
-        //Ajax Load data from ajax
-        $.ajax({
-            url : "<?php echo site_url('perusahaan/RiwayatTransaksi/ajax_edit/')?>/" + id,
-            type: "GET",
-            dataType: "JSON",
-            success: function(data)
-            {
-                $('[name="id"]').val(data.id);
-                $('[name="nama"]').val(data.company_name);
-                $('[name="tipetagihan"]').val(data.legal_type);
-                $('[name="provinsi"]').val(data.province);
-                $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
-                $('.modal-title').text('Edit Perusahaan'); // Set title to Bootstrap modal title
-
-            },
-            error: function (jqXHR, textStatus, errorThrown)
-            {
-                alert('Error get data from ajax');
-            }
-        });
-    }
-
-    function reload_table()
-    {
-        table.ajax.reload(null,false); //reload datatable ajax
-    }
-
-    function save()
-    {
-        $('#btnSave').text('saving...'); //change button text
-        $('#btnSave').attr('disabled',true); //set button disable
-        var url;
-        //var formData = new FormData($(this)[0]);
+function save()
+{
+    $('#btnSave').text('saving...'); //change button text
+    $('#btnSave').attr('disabled',true); //set button disable
+    var url;
+    //var formData = new FormData($(this)[0]);
 //        var formData = new FormData( $("#modal_form")[0] );
-        if(save_method == 'add') {
-            url = "<?php echo site_url('perusahaan/RiwayatTransaksi/ajax_add')?>";
-        } else {
-            url = "<?php echo site_url('perusahaan/RiwayatTransaksi/ajax_update')?>";
-        }
-        $.each($('image'[0]).files, function(i, file){
-            data.append('image', file);
-        });
-        // ajax adding data to database
-        $.ajax({
-            url : url,
-            type: "POST",
-            //data: formData,
-            data: $('#form').serialize(),
-            dataType: "JSON",
+    if(save_method == 'add') {
+        url = "<?php echo site_url('perusahaan/ApprovedRejectedPage/ajax_add')?>";
+    } else {
+        url = "<?php echo site_url('perusahaan/ApprovedRejectedPage/ajax_update')?>";
+    }
+    $.each($('image'[0]).files, function(i, file){
+        data.append('image', file);
+    });
+    // ajax adding data to database
+    $.ajax({
+        url : url,
+        type: "POST",
+        //data: formData,
+        data: $('#form').serialize(),
+        dataType: "JSON",
 //            contentType : false,
 //            processData : false,
-            success: function(data)
-            {
-                if(data.status) //if success close modal and reload ajax table
-                {
-                    $('#modal_form').modal('hide');
-                    reload_table();
-                }
-                else
-                {
-                    for (var i = 0; i < data.inputerror.length; i++)
-                    {
-                        $('[name="'+data.inputerror[i]+'"]').parent().parent().addClass('has-error'); //select parent twice to select div form-group class and add has-error class
-                        $('[name="'+data.inputerror[i]+'"]').next().text(data.error_string[i]); //select span help-block class set text error string
-                    }
-                }
-                $('#btnSave').text('save'); //change button text
-                $('#btnSave').attr('disabled',false); //set button enable
-
-
-            },
-            error: function (jqXHR, textStatus, errorThrown)
-            {
-                alert('Error adding / update data');
-                $('#btnSave').text('save'); //change button text
-                $('#btnSave').attr('disabled',false); //set button enable
-
-            }
-        });
-    }
-
-    function delete_company(id)
-    {
-        if(confirm('Are you sure delete this data?'))
+        success: function(data)
         {
-            // ajax delete data to database
-            $.ajax({
-                url : "<?php echo site_url('perusahaan/RiwayatTransaksi/ajax_delete')?>/"+id,
-                type: "POST",
-                dataType: "JSON",
-                success: function(data)
+            if(data.status) //if success close modal and reload ajax table
+            {
+                $('#modal_form').modal('hide');
+                reload_table();
+            }
+            else
+            {
+                for (var i = 0; i < data.inputerror.length; i++)
                 {
-                    //if success reload ajax table
-                    $('#modal_form').modal('hide');
-                    reload_table();
-                },
-                error: function (jqXHR, textStatus, errorThrown)
-                {
-                    alert('Error deleting data');
+                    $('[name="'+data.inputerror[i]+'"]').parent().parent().addClass('has-error'); //select parent twice to select div form-group class and add has-error class
+                    $('[name="'+data.inputerror[i]+'"]').next().text(data.error_string[i]); //select span help-block class set text error string
                 }
-            });
+            }
+            $('#btnSave').text('save'); //change button text
+            $('#btnSave').attr('disabled',false); //set button enable
+
+
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error adding / update data');
+            $('#btnSave').text('save'); //change button text
+            $('#btnSave').attr('disabled',false); //set button enable
 
         }
-    }
+    });
+}
 
-    function add_person()
+function delete_company(id)
+{
+    if(confirm('Are you sure delete this data?'))
     {
-        save_method = 'add';
-        $('#form')[0].reset(); // reset form on modals
-        $('.form-group').removeClass('has-error'); // clear error class
-        $('.help-block').empty(); // clear error string
-        $('#modal_form').modal('show'); // show bootstrap modal
-        $('.modal-title').text('Bayar Tagihan'); // Set Title to Bootstrap modal title
-        $('#nominal').val(0);
-        $('#nominaldollar').val(0);
-        $('#keterangan').val('');
+        // ajax delete data to database
         $.ajax({
-            url : "<?php echo site_url('perusahaan/RiwayatTransaksi/get_piutang/')?>",
-            type: "GET",
+            url : "<?php echo site_url('perusahaan/ApprovedRejectedPage/ajax_delete')?>/"+id,
+            type: "POST",
             dataType: "JSON",
             success: function(data)
             {
-                $('#jumlah').val(data)
+                //if success reload ajax table
+                $('#modal_form').modal('hide');
+                reload_table();
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
-                alert('Error get data from ajax');
+                alert('Error deleting data');
             }
         });
-        $.ajax({
-            url : "<?php echo site_url('perusahaan/RiwayatTransaksi/get_piutang_dollar/')?>",
-            type: "GET",
-            dataType: "JSON",
-            success: function(data2)
-            {
-                $('#jumlahusd').val(data2)
-            },
-            error: function (jqXHR, textStatus, errorThrown)
-            {
-                alert('Error get data from ajax '.errorThrown);
-            }
-        });
+
     }
+}
+
+function respond(id)
+{
+    $.ajax({
+        url : "<?php echo site_url('perusahaan/ApprovedRejectedPage/ajax_edit/')?>/" + id,
+        type: "GET",
+        dataType: "JSON",
+        success: function(data)
+        {
+            swal({
+                title: 'Verifikasi Pembayaran ',
+                text: 'Verifikasi Pembayaran ' + data.company_name,
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Approve',
+                cancelButtonText: 'Reject'
+            }).then(function () {
+                approve(id);
+//                swal(
+//                    'Deleted!',
+//                    'Your file has been deleted.',
+//                    'success'
+//                )
+            }, function (dismiss) {
+                // dismiss can be 'cancel', 'overlay',
+                // 'close', and 'timer'
+                if (dismiss === 'cancel') {
+                    swal(
+                        'Cancelled',
+                        'Your imaginary file is safe :)',
+                        'error'
+                    )
+                }
+            })
+
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error get data from ajax');
+        }
+    });
+}
+function approve(id)
+{
+    $.ajax({
+        url : "<?php echo site_url('perusahaan/ApprovedRejectedPage/approve')?>/"+id,
+        type: "POST",
+        dataType: "JSON",
+        success: function(data)
+        {
+            debugger;
+            swal(
+                'Approved!',
+                'Your data has been approved.',
+                'success'
+            )
+            //if success reload ajax table
+            reload_table();
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error approving data');
+        }
+    });
+}
+
+function add_person()
+{
+    save_method = 'add';
+    $('#form')[0].reset(); // reset form on modals
+    $('.form-group').removeClass('has-error'); // clear error class
+    $('.help-block').empty(); // clear error string
+    $('#modal_form').modal('show'); // show bootstrap modal
+    $('.modal-title').text('Bayar Tagihan'); // Set Title to Bootstrap modal title
+    $('#nominal').val(0);
+    $('#nominaldollar').val(0);
+    $('#keterangan').val('');
+    $.ajax({
+        url : "<?php echo site_url('perusahaan/ApprovedRejectedPage/get_piutang/')?>",
+        type: "GET",
+        dataType: "JSON",
+        success: function(data)
+        {
+            $('#jumlah').val(data)
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error get data from ajax');
+        }
+    });
+    $.ajax({
+        url : "<?php echo site_url('perusahaan/ApprovedRejectedPage/get_piutang_dollar/')?>",
+        type: "GET",
+        dataType: "JSON",
+        success: function(data2)
+        {
+            $('#jumlahusd').val(data2)
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error get data from ajax '.errorThrown);
+        }
+    });
+}
 </script>

@@ -7,7 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * Time: 3:26 AM
  */
 
-class DaftarPembayaran extends CI_Controller{
+class ApprovedRejectedPage extends CI_Controller{
 
     public function __construct()
     {
@@ -19,7 +19,7 @@ class DaftarPembayaran extends CI_Controller{
         //$this->load->library('session');
         $this->load->model('auth/user_model');
         $this->load->helper('auth/user_helper');
-        $this->load->model('BillCreditModelAdmin');
+        $this->load->model('BillCreditAdminModel');
     }
     function index(){
         check_user_sess();
@@ -27,7 +27,7 @@ class DaftarPembayaran extends CI_Controller{
         if($this->session->userdata('logged_in'))
         {
             $this->load->helper('url');
-            $data ['main_content'] = 'perusahaan/daftarpembayaran';
+            $data ['main_content'] = 'perusahaan/approvedrejectedpage';
             $this->load->view('layout/MainLayout', $data);
         }
         else{
@@ -37,26 +37,26 @@ class DaftarPembayaran extends CI_Controller{
 
     public function ajax_list()
     {
-        $list = $this->BillCreditModelAdmin->get_datatables();
+        $list = $this->BillCreditAdminModel->get_datatables();
         $data = array();
         $no = $_POST['start'];
         foreach ($list as $billcredit) {
             $no++;
             $row = array();
-            //$row[] = $no;
-            $row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Edit" onclick="respond('."'".$billcredit->id."'".')"><i class="glyphicon glyphicon-circle-arrow-up"></i> Respon</a>';
+            $row[] = $billcredit->company_name;
             $row[] = number_format($billcredit->amount);
             $row[] = number_format($billcredit->nominaldollar);
             $row[] = '<a href='.base_url('uploads/'.$billcredit->file_validation).' target='.'_blank'.'>Link</a>';
             $row[] = $billcredit->objection_information;
+            $row[] = $billcredit->is_approved == 1 ? 'Approved' : 'Rejected';
             $row[] = $billcredit->created_date;
             $data[] = $row;
         }
 
         $output = array(
             "draw" => $_POST['draw'],
-            "recordsTotal" => $this->BillCreditModelAdmin->count_all(),
-            "recordsFiltered" => $this->BillCreditModelAdmin->count_filtered(),
+            "recordsTotal" => $this->BillCreditAdminModel->count_all(),
+            "recordsFiltered" => $this->BillCreditAdminModel->count_filtered(),
             "data" => $data,
         );
         //output to json format
@@ -65,18 +65,18 @@ class DaftarPembayaran extends CI_Controller{
 
     public function ajax_edit($id)
     {
-        $data = $this->BillCreditModelAdmin->get_by_id($id);
+        $data = $this->BillCreditAdminModel->get_by_id($id);
         //$data->dob = ($data->dob == '0000-00-00') ? '' : $data->dob; // if 0000-00-00 set tu empty for datepicker compatibility
         echo json_encode($data);
     }
     public function get_piutang()
     {
-        $data = $this->BillCreditModelAdmin->get_piutang_by_company_id();
+        $data = $this->BillCreditAdminModel->get_piutang_by_company_id();
         echo json_encode(number_format($data));
     }
     public function get_piutang_dollar()
     {
-        $data = $this->BillCreditModelAdmin->get_piutang_dollar_by_company_id();
+        $data = $this->BillCreditAdminModel->get_piutang_dollar_by_company_id();
 
         echo json_encode(number_format($data));
     }
@@ -111,7 +111,7 @@ class DaftarPembayaran extends CI_Controller{
             'company_id' => $comp_id,
             'nominaldollar' => $this->input->post('nominaldollar')
         );
-        $insert = $this->BillCreditModelAdmin->save($data);
+        $insert = $this->BillCreditAdminModel->save($data);
 //        echo json_encode(array("status" => TRUE));
         echo json_encode(array("status" => $dataUpload));
     }
@@ -125,7 +125,7 @@ class DaftarPembayaran extends CI_Controller{
             'province' => $this->input->post('provinsi'),
             'is_visible' => true
         );
-        $this->BillCreditModelAdmin->update(array('id' => $this->input->post('id')), $data);
+        $this->BillCreditAdminModel->update(array('id' => $this->input->post('id')), $data);
         echo json_encode(array("status" => TRUE));
     }
     public function approve($id)
@@ -133,21 +133,13 @@ class DaftarPembayaran extends CI_Controller{
         $data = array(
             'is_approved' => 1
         );
-        $updateid = $this->BillCreditModelAdmin->update(array('id' => $id), $data);
-        echo json_encode(array("status" => TRUE));
-    }
-    public function reject($id)
-    {
-        $data = array(
-            'is_approved' => 2
-        );
-        $updateid = $this->BillCreditModelAdmin->update(array('id' => $id), $data);
+        $updateid = $this->BillCreditAdminModel->update(array('id' => $id), $data);
         echo json_encode(array("status" => TRUE));
     }
 
     public function ajax_delete($id)
     {
-        $this->BillCreditModelAdmin->delete_by_id($id);
+        $this->BillCreditAdminModel->delete_by_id($id);
         echo json_encode(array("status" => TRUE));
     }
 
