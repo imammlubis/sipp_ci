@@ -26,7 +26,6 @@ class DaftarPembayaran extends CI_Controller{
         if($this->session->userdata('logged_in'))
         {
             $this->load->helper('url');
-
             $data ['main_content'] = 'perusahaan/daftarpembayaran';
             $this->load->view('layout/MainLayout', $data);
         }
