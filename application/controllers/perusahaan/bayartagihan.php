@@ -7,7 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * Time: 3:26 AM
  */
 
-class RiwayatTransaksi extends CI_Controller{
+class bayartagihan extends CI_Controller{
 
     public function __construct()
     {
@@ -26,15 +26,74 @@ class RiwayatTransaksi extends CI_Controller{
 //        $this->load->view('account/home');
         if($this->session->userdata('logged_in'))
         {
+            //$this->load->view('upload_form', array('error' => ' ' ));
             $this->load->helper('url');
-            $data ['main_content'] = 'perusahaan/riwayattransaksi';
+
+            $data['piutangidr'] = $this->get_piutang();
+            $data['piutangusd'] = $this->get_piutang_dollar();
+            //print_r($this->get_piutang());
+
+            $data ['main_content'] = 'perusahaan/bayartagihan';
             $this->load->view('layout_company/MainLayout', $data);
         }
         else{
             redirect('account/user');
         }
     }
+    function do_upload()
+    {
+        $this->db->select('id');
+        $this->db->from('company');
+        $this->db->where('user_id', $this->session->userdata('logged_in')['user_id']);
+        $comp_id = $this->db->get()->row()->id;
 
+        $config['upload_path'] = './uploads/';
+        $config['allowed_types'] = 'jpg|png|pdf';
+        $config['max_size']	= 'MAX_FILE_SIZE';
+        $config['max_width']  = 'MAX_FILE_SIZE';
+        $config['max_height']  = 'MAX_FILE_SIZE';
+
+        $this->load->library('upload', $config);
+
+        if ( ! $this->upload->do_upload())
+        {
+            //$error = array('error' => $this->upload->display_errors());
+         //print_r($error);
+//            $this->load->view('perusahaan/bayartagihan', $error);
+            redirect('/perusahaan/bayartagihan/errorupload', 'refresh');
+        }
+        else
+        {
+            $upload_data = $this->upload->data();
+            $data = array(
+                'amount' => $this->input->post('nominal'),
+                'file_validation' => $this->input->post('nominal'),
+                'objection_information' => $this->input->post('keterangan'),
+                'is_approved' => 0,
+                'company_id' => $comp_id,
+                'nominaldollar' => $this->input->post('nominaldollar')
+            );
+            $insert = $this->BillCreditModel->save($data);
+
+            $dataUpdate = array(
+                'file_validation' => $upload_data['file_name']
+            );
+            $this->BillCreditModel->update(array('id' => $insert), $dataUpdate);
+//print_r($upload_data);
+            redirect('/perusahaan/bayartagihan', 'refresh');
+        }
+    }
+    function errorupload(){
+        check_user_sess();
+        if($this->session->userdata('logged_in'))
+        {
+            $data ['main_content'] = 'perusahaan/errorupload';
+            $this->load->view('layout_company/MainLayout', $data);
+        }
+        else{
+            redirect('account/user');
+        }
+    }
     public function ajax_list()
     {
         $list = $this->BillCreditModel->get_datatables();
@@ -71,22 +130,23 @@ class RiwayatTransaksi extends CI_Controller{
     public function get_piutang()
     {
         $data = $this->BillCreditModel->get_piutang_by_company_id();
-        echo json_encode(number_format($data));
+        return number_format($data);
+        //echo json_encode(number_format($data));
     }
     public function get_piutang_dollar()
     {
         $data = $this->BillCreditModel->get_piutang_dollar_by_company_id();
-
-        echo json_encode(number_format($data));
+        return number_format($data);
+        //echo json_encode(number_format($data));
     }
 
     public function ajax_add()
     {
         $config['upload_path']          = './uploads/';
         $config['allowed_types']        = 'jpg|png|pdf';
-//        $config['max_size']             = 100;
-//        $config['max_width']            = 1024;
-//        $config['max_height']           = 768;
+        $config['max_size']             = 100;
+        $config['max_width']            = 1024;
+        $config['max_height']           = 768;
         $this->load->library('upload', $config);
 
         $this->db->select('id');
@@ -94,7 +154,7 @@ class RiwayatTransaksi extends CI_Controller{
         $this->db->where('user_id', $this->session->userdata('logged_in')['user_id']);
         $comp_id = $this->db->get()->row()->id;
 
-        $this->_validate();
+        //$this->_validate();
 
         //$file = $_FILES['image'];
 //        $target_dir = 'uploads/';
@@ -114,8 +174,7 @@ class RiwayatTransaksi extends CI_Controller{
             'nominaldollar' => $this->input->post('nominaldollar')
         );
         $insert = $this->BillCreditModel->save($data);
-//        echo json_encode(array("status" => TRUE));
-        echo json_encode(array("status" => $dataUpload));
+        echo json_encode(array("status" => TRUE));
     }
 
     public function ajax_update()

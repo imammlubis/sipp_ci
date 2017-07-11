@@ -52,6 +52,7 @@ class TagihanAwal extends CI_Controller{
             $row[] = $tagihan->billing_no;
             $row[] = $tagihan->billing_date;
             $row[] = number_format($tagihan->amount);
+            $row[] = number_format($tagihan->nominaltagihandollar);
             $row[] = $tagihan->billing_type;
             $data[] = $row;
         }
@@ -91,6 +92,7 @@ class TagihanAwal extends CI_Controller{
             'billing_no' => $this->input->post('nosurat'),
             'billing_date' => $this->input->post('tanggaltagihan'),
             'amount' => $this->input->post('nominaltagihan'),
+            'nominaltagihandollar' => $this->input->post('nominaltagihandollar'),
             'billing_type' => $this->input->post('tipetagihan'),
             'company_id' => $this->input->post('itemName')
         );
@@ -114,6 +116,7 @@ class TagihanAwal extends CI_Controller{
             'billing_no' => $this->input->post('nosurat'),
             'billing_date' => $this->input->post('tanggaltagihan'),
             'amount' => $this->input->post('nominaltagihan'),
+            'nominaltagihandollar' => $this->input->post('nominaltagihandollar'),
             'billing_type' => $this->input->post('tipetagihan')
         );
         $this->TagihanAwalModel->update(array('id' => $this->input->post('id')), $data);

@@ -134,7 +134,7 @@
                                      </div>
                                  </div>
                                  <div class="form-group">
-                                     <label class="col-md-3 control-label">Nominal Tagihan</label>
+                                     <label class="col-md-3 control-label">Nominal Tagihan (IDR) </label>
                                      <div class="col-md-8">
                                          <div class="input-icon">
                                              <i class="fa fa-address-book-o"></i>
@@ -143,6 +143,16 @@
                                          </div>
                                      </div>
                                  </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Nominal Tagihan (USD) </label>
+                                    <div class="col-md-8">
+                                        <div class="input-icon">
+                                            <i class="fa fa-address-book-o"></i>
+                                            <input id="nominaltagihandollar" name="nominaltagihandollar" type="number"
+                                                   class="form-control input-circle" placeholder="Nominal Tagihan">
+                                        </div>
+                                    </div>
+                                </div>
                              </div>
                          </form>
                      </div>
@@ -203,7 +213,8 @@
                                                         <th>Periode Tagihan</th>
                                                         <th>No Tagihan I</th>
                                                         <th>Tgl Tagihan I</th>
-                                                        <th>Nominal</th>
+                                                        <th>Nominal(IDR)</th>
+                                                        <th>Nominal(USD)</th>
                                                         <th>Tipe</th>
                                                     </tr>
                                                     </thead>
@@ -314,6 +325,7 @@
                 $('[name="tanggaltagihan"]').val(data.billing_date);
                 $('[name="tipetagihan"]').val(data.billing_type);
                 $('[name="nominaltagihan"]').val(data.amount);
+                $('[name="nominaltagihandollar"]').val(data.nominaltagihandollar);
 
                 $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
                 $('.modal-title').text('Edit Tagihan'); // Set title to Bootstrap modal title

@@ -78,6 +78,20 @@
                                         <span class="help-block"></span>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">NPWP</label>
+                                    <div class="col-md-9">
+                                        <input name="npwp" id="npwp" placeholder="NPWP" class="form-control" type="text">
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">Alamat</label>
+                                    <div class="col-md-9">
+                                        <input name="alamat" id="alamat" placeholder="Alamat" class="form-control" type="text">
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -169,6 +183,8 @@
                                                 <th>Perusahaan</th>
                                                 <th>Tipe</th>
                                                 <th>Provinsi</th>
+                                                <th>NPWP</th>
+                                                <th>Alamat</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -285,6 +301,8 @@
                 $('[name="nama"]').val(data.company_name);
                 $('[name="tipetagihan"]').val(data.legal_type);
                 $('[name="provinsi"]').val(data.province);
+                $('[name="npwp"]').val(data.npwp);
+                $('[name="alamat"]').val(data.alamat);
 
                 $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
                 $('.modal-title').text('Edit Perusahaan'); // Set title to Bootstrap modal title

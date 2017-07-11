@@ -50,6 +50,8 @@ class DataPerusahaan extends CI_Controller{
             $row[] = $company->company_name;
             $row[] = $company->legal_type;
             $row[] = $company->province;
+            $row[] = $company->alamat;
+            $row[] = $company->npwp;
             $data[] = $row;
         }
 
@@ -78,7 +80,9 @@ class DataPerusahaan extends CI_Controller{
             'company_name' => $this->input->post('nama'),
             'legal_type' => $this->input->post('tipetagihan'),
             'province' => $this->input->post('provinsi'),
-            'is_visible' => true
+            'is_visible' => true,
+            'alamat' =>$this->input->post('alamat'),
+            'npwp' =>$this->input->post('npwp')
         );
         $insert = $this->CompanyModel->save($data);
         echo json_encode(array("status" => TRUE));
@@ -91,7 +95,9 @@ class DataPerusahaan extends CI_Controller{
             'company_name' => $this->input->post('nama'),
             'legal_type' => $this->input->post('tipetagihan'),
             'province' => $this->input->post('provinsi'),
-            'is_visible' => true
+            'is_visible' => true,
+            'alamat' =>$this->input->post('alamat'),
+            'npwp' =>$this->input->post('npwp')
         );
         $this->CompanyModel->update(array('id' => $this->input->post('id')), $data);
         echo json_encode(array("status" => TRUE));

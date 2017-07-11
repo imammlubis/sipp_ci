@@ -117,6 +117,31 @@ class BillCreditModel extends CI_Model {
 
         return $resultsum;
     }
+    public function get_piutang_dollar_by_company_id()
+    {
+        $this->db->select('id');
+        $this->db->from('company');
+        $this->db->where('user_id', $this->session->userdata('logged_in')['user_id']);
+        $comp_id = $this->db->get()->row()->id;
+
+        $this->db->select('nominaltagihandollar');
+        $this->db->from('tagihanawal');
+        $this->db->where('company_id', $comp_id);
+        $amountawal = $this->db->get()->row()->nominaltagihandollar;
+
+        $this->db->select_sum('nominaldollar');
+        $this->db->from('billcredit');
+        $this->db->where('company_id', $comp_id);
+        $this->db->where('is_approved', 1);
+        $sum_amountcredit = $this->db->get()->row()->nominaldollar;
+        $resultsum = $amountawal - $sum_amountcredit;
+
+//        $this->db->from($this->table);
+//        $this->db->where('id',$id);
+//        $query = $this->db->get();
+
+        return $resultsum;
+    }
 
     public function save($data)
     {

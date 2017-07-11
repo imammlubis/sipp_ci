@@ -9,7 +9,7 @@ class TagihanAwalModel extends CI_Model{
 
     var $table = 'tagihanawal';
     var $column_order = array(null,'tagihanawal.evaluator, tagihanawal.checking_period1, tagihanawal.checking_period2,
-         tagihanawal.billing_period, tagihanawal.billing_no, tagihanawal.billing_date, tagihanawal.amount, tagihanawal.billing_type,
+         tagihanawal.billing_period, tagihanawal.billing_no, tagihanawal.billing_date, tagihanawal.amount, tagihanawal.nominaltagihandollar, tagihanawal.billing_type,
          tagihanawal.company_id, company.company_name'); //set column field database for datatable orderable
     var $column_search = array('company_name'); //set column field database for datatable searchable
     var $order = array('tagihanawal.id' => 'asc'); // default order
@@ -22,7 +22,7 @@ class TagihanAwalModel extends CI_Model{
     private function _get_datatables_query()
     {
         $this->db->select('tagihanawal.id, tagihanawal.evaluator, tagihanawal.checking_period1, tagihanawal.checking_period2,
-         tagihanawal.billing_period, tagihanawal.billing_no, tagihanawal.billing_date, tagihanawal.amount, tagihanawal.billing_type,
+         tagihanawal.billing_period, tagihanawal.billing_no, tagihanawal.billing_date, tagihanawal.amount,tagihanawal.nominaltagihandollar, tagihanawal.billing_type,
          tagihanawal.company_id, company.company_name, company.is_visible');
         $this->db->from($this->table);
         $this->db->where('company.is_visible', 1);
@@ -79,7 +79,7 @@ class TagihanAwalModel extends CI_Model{
     public function count_all()
     {
         $this->db->select('tagihanawal.id, tagihanawal.evaluator, tagihanawal.checking_period1, tagihanawal.checking_period2,
-         tagihanawal.billing_period, tagihanawal.billing_no, tagihanawal.billing_date, tagihanawal.amount, tagihanawal.billing_type,
+         tagihanawal.billing_period, tagihanawal.billing_no, tagihanawal.billing_date,tagihanawal.nominaltagihandollar, tagihanawal.amount, tagihanawal.billing_type,
          tagihanawal.company_id, company.company_name, company.is_visible');
         $this->db->from($this->table);
         $this->db->where('company.is_visible', 1);
@@ -92,7 +92,7 @@ class TagihanAwalModel extends CI_Model{
     public function get_by_id($id)
     {
         $this->db->select('tagihanawal.id, tagihanawal.evaluator, tagihanawal.checking_period1, tagihanawal.checking_period2,
-         tagihanawal.billing_period, tagihanawal.billing_no, tagihanawal.billing_date, tagihanawal.amount, tagihanawal.billing_type,
+         tagihanawal.billing_period, tagihanawal.billing_no, tagihanawal.billing_date, tagihanawal.amount,tagihanawal.nominaltagihandollar, tagihanawal.billing_type,
          tagihanawal.company_id, company.company_name, company.is_visible');
         $this->db->from($this->table);
         $this->db->where('company.is_visible', 1);

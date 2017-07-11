@@ -118,6 +118,10 @@
                                     </a>
                                     <ul class="dropdown-menu pull-left">
                                         <li class=" ">
+                                            <a href="<?php echo base_url();?>perusahaan/bayartagihan">
+                                                <i class="icon-bulb"></i> Bayar Tagihan </a>
+                                        </li>
+                                        <li class=" ">
                                             <a href="<?php echo base_url();?>perusahaan/riwayattransaksi">
                                                 <i class="icon-bulb"></i> Transaksi Pembayaran </a>
                                         </li>
