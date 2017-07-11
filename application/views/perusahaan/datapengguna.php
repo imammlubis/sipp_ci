@@ -54,6 +54,8 @@
                                         <div class="form-group">
                                             <label class="control-label col-md-3">Perusahaan</label>
                                             <div class="col-md-9">
+                                                <select class="itemName form-control input-circle" style="width:370px"
+                                                        id="itemName" name="itemName"></select>
                                                 <input type="text" id="company_name" name="company_name" class="form-control" placeholder="Perusahaan" disabled="disabled">
                                                 <span class="help-block"></span>
                                             </div>
@@ -228,6 +230,9 @@
         $('.form-group').removeClass('has-error'); // clear error class
         $('.help-block').empty(); // clear error string
 
+        $('#company_name').prop('disabled',true);
+        $('#itemName').hide();
+        $('span.select2').hide();
         //Ajax Load data from ajax
         $.ajax({
             url : "<?php echo site_url('perusahaan/DataPengguna/ajax_edit/')?>/" + id,
@@ -338,5 +343,11 @@
         $('.help-block').empty(); // clear error string
         $('#modal_form').modal('show'); // show bootstrap modal
         $('.modal-title').text('Tambah Pengguna'); // Set Title to Bootstrap modal title
+
+        $('#company_name').prop('disabled',false);
+        $('#company_name').hide();
+
+        $('#itemName').show();
+        $('span.select2').show();
     }
 </script>
