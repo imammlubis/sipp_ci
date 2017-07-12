@@ -99,7 +99,7 @@ class BillCreditModel extends CI_Model {
         $this->db->where('user_id', $this->session->userdata('logged_in')['user_id']);
         $comp_id = $this->db->get()->row()->id;
 
-        $this->db->select('amount');
+        $this->db->select_sum('amount');
         $this->db->from('tagihanawal');
         $this->db->where('company_id', $comp_id);
         $amountawal = $this->db->get()->row()->amount;
@@ -124,7 +124,7 @@ class BillCreditModel extends CI_Model {
         $this->db->where('user_id', $this->session->userdata('logged_in')['user_id']);
         $comp_id = $this->db->get()->row()->id;
 
-        $this->db->select('nominaltagihandollar');
+        $this->db->select_sum('nominaltagihandollar');
         $this->db->from('tagihanawal');
         $this->db->where('company_id', $comp_id);
         $amountawal = $this->db->get()->row()->nominaltagihandollar;

@@ -176,7 +176,7 @@
                     <div class="portlet-title">
                         <div class="caption">
                             <i class="fa fa-cogs font-green-sharp"></i>
-                            <span class="caption-subject font-green-sharp bold uppercase">Laporan Piutang</span>
+                            <span class="caption-subject font-green-sharp bold uppercase">Laporan Piutang PNBP</span>
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="collapse" data-original-title="" title="">
@@ -184,7 +184,6 @@
                         </div>
                     </div>
                     <div class="portlet-body">
-
                         <div id="sample_1_wrapper" class="dataTables_wrapper no-footer">
                             <div class="table-scrollable">
                                 <table id="table" class="table table-striped table-bordered table-condensed"
@@ -202,6 +201,14 @@
                                         <th>Tipe</th>
                                     </tr>
                                     </thead>
+                                    <tfoot>
+                                    <tr>
+                                        <th colspan="6" style="text-align:right">Total:</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                    </tfoot>
                                     <tbody>
                                     </tbody>
                                 </table>
@@ -261,6 +268,23 @@
         });
         //datatables
         table = $('#table').DataTable({
+            "fnFooterCallback": function(nRow, aaData, iDataStart, iDataEnd,aiDisplay){
+                var iTotalMarket = 0;
+                for ( var i=0 ; i<aaData.length ; i++ )
+                {
+                    iTotalMarket += parseFloat(aaData[i][6].replace(/,/g, ''));
+                }
+
+                /* Calculate the market share for browsers on this page */
+                var iPageMarket = 0;
+                for ( var i=iDataStart ; i<iDataEnd ; i++ )
+                {
+                    iPageMarket += parseFloat(aaData[aiDisplay[i]][6].replace(/,/g, ''));
+                }
+                var nCells = nRow.getElementsByTagName('th');
+//                nCells[1].innerHTML = parseInt(iPageMarket);
+                nCells[1].innerHTML = numberWithCommas(parseInt(iPageMarket));
+            },
             "processing": true, //Feature control the processing indicator.
             "serverSide": true, //Feature control DataTables' server-side processing mode.
             "order": [], //Initial no order.
@@ -280,7 +304,9 @@
         });
 
     });
-
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
     function edit_tagihan(id)
     {
         save_method = 'update';
