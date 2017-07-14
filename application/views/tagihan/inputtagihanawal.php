@@ -119,40 +119,67 @@
                                      </div>
                                  </div>
                                  <div class="form-group">
-                                     <label class="col-md-3 control-label">Tipe Tagihan</label>
+                                     <label class="col-md-3 control-label">Iuran Tetap (IDR) </label>
                                      <div class="col-md-8">
                                          <div class="input-icon">
                                              <i class="fa fa-address-book-o"></i>
-                                             <select class="form-control input-circle"
-                                                     name="tipetagihan" id="tipetagihan">
-                                                 <option value="">- Silahkan Pilih  -</option>
-                                                 <option value="Iuran Tetap">Iuran Tetap</option>
-                                                 <option value="Royalti">Royalti</option>
-                                                 <option value="PHT">PHT</option>
-                                             </select>
-                                         </div>
-                                     </div>
-                                 </div>
-                                 <div class="form-group">
-                                     <label class="col-md-3 control-label">Nominal Tagihan (IDR) </label>
-                                     <div class="col-md-8">
-                                         <div class="input-icon">
-                                             <i class="fa fa-address-book-o"></i>
-                                             <input id="nominaltagihan" name="nominaltagihan" type="number"
-                                                    class="form-control input-circle" placeholder="Nominal Tagihan">
+                                             <input id="iuran_tetap_idr" name="iuran_tetap_idr" type="number"
+                                                    class="form-control input-circle" placeholder="Iuran Tetap (IDR)">
                                          </div>
                                      </div>
                                  </div>
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Nominal Tagihan (USD) </label>
+                                    <label class="col-md-3 control-label">Iuran Tetap (USD) </label>
                                     <div class="col-md-8">
                                         <div class="input-icon">
                                             <i class="fa fa-address-book-o"></i>
-                                            <input id="nominaltagihandollar" name="nominaltagihandollar" type="number"
-                                                   class="form-control input-circle" placeholder="Nominal Tagihan">
+                                            <input id="iuran_tetap_usd" name="iuran_tetap_usd" type="number"
+                                                   class="form-control input-circle" placeholder="Iuran Tetap (USD)">
                                         </div>
                                     </div>
                                 </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Royalti (IDR) </label>
+                                            <div class="col-md-8">
+                                                <div class="input-icon">
+                                                    <i class="fa fa-address-book-o"></i>
+                                                    <input id="royalti_idr" name="royalti_idr" type="number"
+                                                           class="form-control input-circle" placeholder="Royalti (IDR)">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Royalti (USD) </label>
+                                            <div class="col-md-8">
+                                                <div class="input-icon">
+                                                    <i class="fa fa-address-book-o"></i>
+                                                    <input id="royalti_usd" name="royalti_usd" type="number"
+                                                           class="form-control input-circle" placeholder="Royalti (USD)">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">PHT (IDR) </label>
+                                            <div class="col-md-8">
+                                                <div class="input-icon">
+                                                    <i class="fa fa-address-book-o"></i>
+                                                    <input id="pht_idr" name="pht_idr" type="number"
+                                                           class="form-control input-circle" placeholder="PHT (IDR)">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">PHT (USD) </label>
+                                            <div class="col-md-8">
+                                                <div class="input-icon">
+                                                    <i class="fa fa-address-book-o"></i>
+                                                    <input id="pht_usd" name="pht_usd" type="number"
+                                                           class="form-control input-circle" placeholder="PHT (USD)">
+                                                </div>
+                                            </div>
+                                        </div>
                              </div>
                          </form>
                      </div>
@@ -211,11 +238,14 @@
                                                         <th>Evaluator</th>
                                                         <th>Periode Pemeriksaan</th>
                                                         <th>Periode Tagihan</th>
-                                                        <th>No Tagihan I</th>
-                                                        <th>Tgl Tagihan I</th>
-                                                        <th>Nominal(IDR)</th>
-                                                        <th>Nominal(USD)</th>
-                                                        <th>Tipe</th>
+                                                        <th>No Tagihan</th>
+                                                        <th>Tgl Tagihan</th>
+                                                        <th>IuranTetap(IDR)</th>
+                                                        <th>IuranTetap(USD)</th>
+                                                        <th>Royalti(IDR)</th>
+                                                        <th>Royalti(USD)</th>
+                                                        <th>PHT(IDR)</th>
+                                                        <th>PHT(USD)</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -305,6 +335,7 @@
         $('.form-group').removeClass('has-error'); // clear error class
         $('.help-block').empty(); // clear error string
         $('#company_name').prop('disabled',true);
+        $('#company_name').show();
         //$('#itemName').prop('disabled',true);
         $('#itemName').hide();
         $('span.select2').hide();
@@ -315,6 +346,15 @@
             dataType: "JSON",
             success: function(data)
             {
+                data.iuran_tetap_idr = data.iuran_tetap_idr == null ? 0 : data.iuran_tetap_idr;
+                data.iuran_tetap_usd = data.iuran_tetap_usd == null ? 0 : data.iuran_tetap_usd;
+
+                data.royalti_idr = data.royalti_idr == null ? 0 : data.royalti_idr;
+                data.royalti_usd = data.royalti_usd == null ? 0 : data.royalti_usd;
+
+                data.pht_idr = data.pht_idr == null ? 0 : data.pht_idr;
+                data.pht_usd = data.pht_usd == null ? 0 : data.pht_usd;
+
                 $('[name="id"]').val(data.id);
                 $('[name="company_name"]').val(data.company_name);
                 $('[name="pemeriksa"]').val(data.evaluator);
@@ -323,9 +363,14 @@
                 $('[name="tahunpenagihan"]').val(data.billing_period);
                 $('[name="nosurat"]').val(data.billing_no);
                 $('[name="tanggaltagihan"]').val(data.billing_date);
-                $('[name="tipetagihan"]').val(data.billing_type);
-                $('[name="nominaltagihan"]').val(data.amount);
-                $('[name="nominaltagihandollar"]').val(data.nominaltagihandollar);
+                $('[name="iuran_tetap_idr"]').val(data.iuran_tetap_idr);
+                $('[name="iuran_tetap_usd"]').val(data.iuran_tetap_usd);
+
+                $('[name="royalti_idr"]').val(data.royalti_idr);
+                $('[name="royalti_usd"]').val(data.royalti_usd);
+
+                $('[name="pht_idr"]').val(data.pht_idr);
+                $('[name="pht_usd"]').val(data.pht_usd);
 
                 $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
                 $('.modal-title').text('Edit Tagihan'); // Set title to Bootstrap modal title
@@ -429,5 +474,12 @@
 
         $('#itemName').show();
         $('span.select2').show();
+        $('#iuran_tetap_idr').val(0);
+        $('#iuran_tetap_usd').val(0);
+        $('#royalti_idr').val(0);
+        $('#royalti_usd').val(0);
+        $('#pht_idr').val(0);
+        $('#pht_usd').val(0);
+
     }
 </script>

@@ -41,19 +41,19 @@ class TagihanAwal extends CI_Controller{
         foreach ($list as $tagihan) {
             $no++;
             $row = array();
-            //$row[] = $no;
-            //$row[] = $company->id;
             $row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Edit" onclick="edit_tagihan('."'".$tagihan->id."'".')"><i class="glyphicon glyphicon-pencil"></i> Edit</a>';
-//                  <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_tagihan('."'".$tagihan->id."'".')"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
             $row[] = $tagihan->company_name;
             $row[] = $tagihan->evaluator;
             $row[] = $tagihan->checking_period1 . ' s/d ' . $tagihan->checking_period2;
             $row[] = $tagihan->billing_period;
             $row[] = $tagihan->billing_no;
             $row[] = $tagihan->billing_date;
-            $row[] = number_format($tagihan->amount);
-            $row[] = number_format($tagihan->nominaltagihandollar);
-            $row[] = $tagihan->billing_type;
+            $row[] = number_format($tagihan->iuran_tetap_idr);
+            $row[] = number_format($tagihan->iuran_tetap_usd);
+            $row[] = number_format($tagihan->royalti_idr);
+            $row[] = number_format($tagihan->royalti_usd);
+            $row[] = number_format($tagihan->pht_idr);
+            $row[] = number_format($tagihan->pht_usd);
             $data[] = $row;
         }
 
@@ -91,9 +91,16 @@ class TagihanAwal extends CI_Controller{
             'billing_period' => $this->input->post('tahunpenagihan'),
             'billing_no' => $this->input->post('nosurat'),
             'billing_date' => $this->input->post('tanggaltagihan'),
-            'amount' => $this->input->post('nominaltagihan'),
-            'nominaltagihandollar' => $this->input->post('nominaltagihandollar'),
-            'billing_type' => $this->input->post('tipetagihan'),
+
+            'iuran_tetap_idr' => $this->input->post('iuran_tetap_idr'),
+            'iuran_tetap_usd' => $this->input->post('iuran_tetap_usd'),
+
+            'royalti_idr' => $this->input->post('royalti_idr'),
+            'royalti_usd' => $this->input->post('royalti_usd'),
+
+            'pht_idr' => $this->input->post('pht_idr'),
+            'pht_usd' => $this->input->post('pht_usd'),
+
             'company_id' => $this->input->post('itemName')
         );
         $insert = $this->TagihanAwalModel->save($data);
@@ -115,13 +122,18 @@ class TagihanAwal extends CI_Controller{
             'billing_period' => $this->input->post('tahunpenagihan'),
             'billing_no' => $this->input->post('nosurat'),
             'billing_date' => $this->input->post('tanggaltagihan'),
-            'amount' => $this->input->post('nominaltagihan'),
-            'nominaltagihandollar' => $this->input->post('nominaltagihandollar'),
-            'billing_type' => $this->input->post('tipetagihan')
+
+            'iuran_tetap_idr' => $this->input->post('iuran_tetap_idr'),
+            'iuran_tetap_usd' => $this->input->post('iuran_tetap_usd'),
+
+            'royalti_idr' => $this->input->post('royalti_idr'),
+            'royalti_usd' => $this->input->post('royalti_usd'),
+
+            'pht_idr' => $this->input->post('pht_idr'),
+            'pht_usd' => $this->input->post('pht_usd'),
         );
         $this->TagihanAwalModel->update(array('id' => $this->input->post('id')), $data);
         echo json_encode(array("status" => TRUE));
-        //echo json_encode($data);
     }
 
     public function ajax_delete($id)
@@ -145,13 +157,44 @@ class TagihanAwal extends CI_Controller{
             $data['status'] = FALSE;
         }
 
-        if($this->input->post('tipetagihan') == '')
+        if($this->input->post('iuran_tetap_idr') == '')
         {
-            $data['inputerror'][] = 'tipetagihan';
-            $data['error_string'][] = 'Tipe tagihan is required';
+            $data['inputerror'][] = 'iuran_tetap_idr';
+            $data['error_string'][] = 'iuran_tetap_idr is required';
             $data['status'] = FALSE;
         }
 
+        if($this->input->post('iuran_tetap_usd') == '')
+        {
+            $data['inputerror'][] = 'iuran_tetap_usd';
+            $data['error_string'][] = 'iuran_tetap_usd is required';
+            $data['status'] = FALSE;
+        }
+
+        if($this->input->post('royalti_idr') == '')
+        {
+            $data['inputerror'][] = 'royalti_idr';
+            $data['error_string'][] = 'royalti_idr is required';
+            $data['status'] = FALSE;
+        }
+        if($this->input->post('royalti_usd') == '')
+        {
+            $data['inputerror'][] = 'royalti_usd';
+            $data['error_string'][] = 'royalti_usd is required';
+            $data['status'] = FALSE;
+        }
+        if($this->input->post('pht_idr') == '')
+        {
+            $data['inputerror'][] = 'pht_idr';
+            $data['error_string'][] = 'pht_idr is required';
+            $data['status'] = FALSE;
+        }
+        if($this->input->post('pht_usd') == '')
+        {
+            $data['inputerror'][] = 'pht_usd';
+            $data['error_string'][] = 'pht_usd is required';
+            $data['status'] = FALSE;
+        }
         if($data['status'] === FALSE)
         {
             echo json_encode($data);

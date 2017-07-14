@@ -6,13 +6,10 @@
  * Time: 3:02 AM
  */
 class LaporanPiutangModel extends CI_Model{
-
-    var $table = 'tagihanawal';
-    var $column_order = array(null,'tagihanawal.evaluator, tagihanawal.checking_period1, tagihanawal.checking_period2,
-         tagihanawal.billing_period, tagihanawal.billing_no, tagihanawal.billing_date, tagihanawal.amount, tagihanawal.nominaltagihandollar, tagihanawal.billing_type,
-         tagihanawal.company_id, company.company_name'); //set column field database for datatable orderable
-    var $column_search = array('company_name'); //set column field database for datatable searchable
-    var $order = array('tagihanawal.id' => 'asc'); // default order
+    var $table = 'company';
+    var $column_order = array(null,'a.company_name, a.legal_type, a.province'); //set column field database for datatable orderable
+    var $column_search = array('a.company_name', 'province', 'legal_type'); //set column field database for datatable searchable
+    var $order = array('a.id' => 'asc'); // default order
 
     public function __construct()
     {
@@ -21,12 +18,21 @@ class LaporanPiutangModel extends CI_Model{
     }
     private function _get_datatables_query()
     {
-        $this->db->select('tagihanawal.id, tagihanawal.evaluator, tagihanawal.checking_period1, tagihanawal.checking_period2,
-         tagihanawal.billing_period, tagihanawal.billing_no, tagihanawal.billing_date, tagihanawal.amount,tagihanawal.nominaltagihandollar, tagihanawal.billing_type,
-         tagihanawal.company_id, company.legal_type, company.company_name, company.is_visible');
-        $this->db->from($this->table);
-        $this->db->where('company.is_visible', 1);
-        $this->db->join('company', 'tagihanawal.company_id = company.id');
+        $this->db->select('a.id, a.company_name, a.legal_type, a.province,
+        (select sum(iuran_tetap_idr) from tagihanawal where company_id = a.id)iuran_tetap_idr,
+        (select sum(iuran_tetap_usd) from tagihanawal where company_id = a.id)iuran_tetap_usd,
+        (select sum(royalti_idr) from tagihanawal where company_id = a.id)royalti_idr,
+        (select sum(royalti_usd) from tagihanawal where company_id = a.id)royalti_usd,
+        (select sum(pht_idr) from tagihanawal where company_id = a.id)pht_idr,
+        (select sum(pht_usd) from tagihanawal where company_id = a.id)pht_usd,
+        (SELECT sum(amount) from billcredit where company_id = a.id) credidr,
+        (SELECT sum(nominaldollar) from billcredit where company_id = a.id) credusd');
+        $this->db->from('company a');
+        $this->db->join('tagihanawal b', 'b.company_id = a.id', 'left');
+        $this->db->join('billcredit c', 'c.company_id = a.id', 'left');
+        $this->db->group_by('a.company_name, a.legal_type, a.province');
+        $this->db->where('a.is_visible', 1);
+
         $i = 0;
 
         foreach ($this->column_search as $item) // loop column
@@ -78,26 +84,45 @@ class LaporanPiutangModel extends CI_Model{
 
     public function count_all()
     {
-        $this->db->select('tagihanawal.id, tagihanawal.evaluator, tagihanawal.checking_period1, tagihanawal.checking_period2,
-         tagihanawal.billing_period, tagihanawal.billing_no, tagihanawal.billing_date,tagihanawal.nominaltagihandollar, tagihanawal.amount, tagihanawal.billing_type,
-         tagihanawal.company_id, company.company_name, company.is_visible');
+//        $this->db->select('a.id, a.company_name, a.legal_type, a.province,
+//        (select sum(iuran_tetap_idr) from tagihanawal where company_id = a.id)iuran_tetap_idr,
+//        (select sum(iuran_tetap_usd) from tagihanawal where company_id = a.id)iuran_tetap_usd,
+//        (select sum(royalti_idr) from tagihanawal where company_id = a.id)royalti_idr,
+//        (select sum(royalti_usd) from tagihanawal where company_id = a.id)royalti_usd,
+//        (select sum(pht_idr) from tagihanawal where company_id = a.id)pht_idr,
+//        (select sum(pht_usd) from tagihanawal where company_id = a.id)pht_usd,
+//        (SELECT sum(amount) from billcredit where company_id = a.id) credidr,
+//        (SELECT sum(nominaldollar) from billcredit where company_id = a.id) credusd');
+//        $this->db->from('company a');
+//        $this->db->join('tagihanawal b', 'b.company_id = a.id', 'left');
+//        $this->db->join('billcredit c', 'c.company_id = a.id', 'left');
+//        $this->db->group_by('a.company_name, a.legal_type, a.province');
+//
+//        $this->db->where('a.is_visible', 1);
+//        return $this->db->count_all_results();
         $this->db->from($this->table);
-        $this->db->where('company.is_visible', 1);
-        $this->db->join('company', 'tagihanawal.company_id = company.id');
-
-//        $this->db->from($this->table);
-//        $this->db->where('role', 'company');
+        $this->db->where('is_visible', 1);
         return $this->db->count_all_results();
     }
     public function get_by_id($id)
     {
-        $this->db->select('tagihanawal.id, tagihanawal.evaluator, tagihanawal.checking_period1, tagihanawal.checking_period2,
-         tagihanawal.billing_period, tagihanawal.billing_no, tagihanawal.billing_date, tagihanawal.amount,tagihanawal.nominaltagihandollar, tagihanawal.billing_type,
-         tagihanawal.company_id, company.company_name, company.is_visible');
-        $this->db->from($this->table);
-        $this->db->where('company.is_visible', 1);
-        $this->db->join('company', 'tagihanawal.company_id = company.id');
-        $this->db->where('tagihanawal.id',$id);
+        $this->db->select('a.id, a.company_name, a.legal_type, a.province,
+        (select sum(iuran_tetap_idr) from tagihanawal where company_id = a.id)iuran_tetap_idr,
+        (select sum(iuran_tetap_usd) from tagihanawal where company_id = a.id)iuran_tetap_usd,
+        (select sum(royalti_idr) from tagihanawal where company_id = a.id)royalti_idr,
+        (select sum(royalti_usd) from tagihanawal where company_id = a.id)royalti_usd,
+        (select sum(pht_idr) from tagihanawal where company_id = a.id)pht_idr,
+        (select sum(pht_usd) from tagihanawal where company_id = a.id)pht_usd,
+        (SELECT sum(amount) from billcredit where company_id = a.id) credidr,
+        (SELECT sum(nominaldollar) from billcredit where company_id = a.id) credusd');
+        $this->db->from('company a');
+        $this->db->join('tagihanawal b', 'b.company_id = a.id', 'left');
+        $this->db->join('billcredit c', 'c.company_id = a.id', 'left');
+        $this->db->group_by('a.company_name, a.legal_type, a.province');
+        $this->db->order_by('a.id', 'asc');
+        $this->db->where('a.is_visible', 1);
+
+        $this->db->where('a.id',$id);
         $query = $this->db->get();
         return $query->row();
     }

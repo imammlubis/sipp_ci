@@ -136,11 +136,11 @@
                                     </a>
                                     <ul class="dropdown-menu pull-left">
                                         <li class=" ">
-                                            <a href="<?php echo base_url();?>perusahaan/dataperusahaan">
+                                            <a href="<?php echo base_url();?>perusahaan/DataPerusahaan">
                                                 <i class="icon-bulb"></i> Data Perusahaan </a>
                                         </li>
                                         <li class=" ">
-                                            <a href="<?php echo base_url();?>perusahaan/datapengguna">
+                                            <a href="<?php echo base_url();?>perusahaan/DataPengguna">
                                                 <i class="icon-bulb"></i> Data User </a>
                                         </li>
                                     </ul>

@@ -7,9 +7,11 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 class LaporanPiutang extends CI_Controller{
-
     public function __construct()
     {
+        ini_set('max_execution_time', 0);
+        ini_set('memory_limit','2048M');
+
         parent::__construct();
         $this->load->helper('url');
         $this->load->library('form_validation');
@@ -42,14 +44,25 @@ class LaporanPiutang extends CI_Controller{
             $no++;
             $row = array();
             $row[] = $tagihan->company_name;
-            $row[] = $tagihan->evaluator;
-            $row[] = $tagihan->checking_period1 . ' s/d ' . $tagihan->checking_period2;
-            $row[] = $tagihan->billing_period;
-            $row[] = $tagihan->billing_no;
-            $row[] = $tagihan->billing_date;
-            $row[] = number_format($tagihan->amount);
-            $row[] = number_format($tagihan->nominaltagihandollar);
-            $row[] = $tagihan->billing_type;
+            $row[] = $tagihan->legal_type;
+            $row[] = $tagihan->province;
+
+            $row[] = number_format($tagihan->iuran_tetap_idr);
+            $row[] = number_format($tagihan->iuran_tetap_usd);
+
+            $row[] = number_format($tagihan->royalti_idr);
+            $row[] = number_format($tagihan->royalti_usd);
+
+            $row[] = number_format($tagihan->pht_idr);
+            $row[] = number_format($tagihan->pht_usd);
+
+            $row[] = number_format($tagihan->credidr);
+            $row[] = number_format($tagihan->credusd);
+
+            //saldo akhir
+            $row[] = number_format(($tagihan->iuran_tetap_idr + $tagihan->royalti_idr + $tagihan->pht_idr) - $tagihan->credidr);
+            $row[] = number_format(($tagihan->iuran_tetap_usd + $tagihan->royalti_usd + $tagihan->pht_usd) - $tagihan->credusd);
+
             $data[] = $row;
         }
 

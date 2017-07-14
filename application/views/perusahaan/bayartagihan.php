@@ -134,7 +134,7 @@
                                     <div class="portlet-body">
                                         <div id="sample_1_wrapper" class="dataTables_wrapper no-footer">
                                             <div class="modal-body form">
-                                                <form action="<?php echo base_url('perusahaan/bayartagihan/do_upload');?>"
+                                                <form action="<?php echo base_url('perusahaan/BayarTagihan/do_upload');?>"
                                                       id="form" class="form-horizontal" enctype="multipart/form-data" method="post">
                                                     <input type="hidden" value="" name="id"/>
                                                     <div class="form-body">

@@ -118,6 +118,15 @@
 
 <script src="<?php echo base_url();?>application/assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
 
+<!--<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js" type="text/javascript"></script>-->
+<script src="https://cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js" type="text/javascript"></script>
+<script src="//cdn.datatables.net/buttons/1.3.1/js/buttons.flash.min.js" type="text/javascript"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js" type="text/javascript"></script>
+<script src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js" type="text/javascript"></script>
+<script src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js" type="text/javascript"></script>
+<script src="//cdn.datatables.net/buttons/1.3.1/js/buttons.html5.min.js" type="text/javascript"></script>
+<script src="//cdn.datatables.net/buttons/1.3.1/js/buttons.print.min.js" type="text/javascript"></script>
+
 <!-- END THEME LAYOUT SCRIPTS -->
 <!--<script src="--><?php //echo base_url();?><!--application/assets/global/plugins/flot/jquery.flot.min.js" type="text/javascript"></script>-->
 <!--<script src="--><?php //echo base_url();?><!--application/assets/global/plugins/flot/jquery.flot.resize.min.js" type="text/javascript"></script>-->

@@ -99,10 +99,10 @@ class BillCreditModel extends CI_Model {
         $this->db->where('user_id', $this->session->userdata('logged_in')['user_id']);
         $comp_id = $this->db->get()->row()->id;
 
-        $this->db->select_sum('amount');
+        $this->db->select('sum(iuran_tetap_idr) + sum(royalti_idr) + sum(pht_idr) as total', false);
         $this->db->from('tagihanawal');
         $this->db->where('company_id', $comp_id);
-        $amountawal = $this->db->get()->row()->amount;
+        $amountawal = $this->db->get()->row()->total;
 
         $this->db->select_sum('amount');
         $this->db->from('billcredit');
@@ -110,10 +110,6 @@ class BillCreditModel extends CI_Model {
         $this->db->where('is_approved', 1);
         $sum_amountcredit = $this->db->get()->row()->amount;
         $resultsum = $amountawal - $sum_amountcredit;
-
-//        $this->db->from($this->table);
-//        $this->db->where('id',$id);
-//        $query = $this->db->get();
 
         return $resultsum;
     }
@@ -124,10 +120,10 @@ class BillCreditModel extends CI_Model {
         $this->db->where('user_id', $this->session->userdata('logged_in')['user_id']);
         $comp_id = $this->db->get()->row()->id;
 
-        $this->db->select_sum('nominaltagihandollar');
+        $this->db->select('sum(iuran_tetap_usd) + sum(royalti_usd) + sum(pht_usd) as total', false);
         $this->db->from('tagihanawal');
         $this->db->where('company_id', $comp_id);
-        $amountawal = $this->db->get()->row()->nominaltagihandollar;
+        $amountawal = $this->db->get()->row()->total;
 
         $this->db->select_sum('nominaldollar');
         $this->db->from('billcredit');
@@ -135,10 +131,6 @@ class BillCreditModel extends CI_Model {
         $this->db->where('is_approved', 1);
         $sum_amountcredit = $this->db->get()->row()->nominaldollar;
         $resultsum = $amountawal - $sum_amountcredit;
-
-//        $this->db->from($this->table);
-//        $this->db->where('id',$id);
-//        $query = $this->db->get();
 
         return $resultsum;
     }

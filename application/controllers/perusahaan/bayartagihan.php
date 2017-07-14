@@ -7,7 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * Time: 3:26 AM
  */
 
-class bayartagihan extends CI_Controller{
+class BayarTagihan extends CI_Controller{
 
     public function __construct()
     {
