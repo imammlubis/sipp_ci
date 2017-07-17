@@ -118,7 +118,7 @@
                                     </a>
                                     <ul class="dropdown-menu pull-left">
                                         <li class=" ">
-                                            <a href="<?php echo base_url();?>perusahaan/bayartagihan">
+                                            <a href="<?php echo base_url();?>perusahaan/BayarTagihan">
                                                 <i class="icon-bulb"></i> Bayar Tagihan </a>
                                         </li>
                                         <li class=" ">

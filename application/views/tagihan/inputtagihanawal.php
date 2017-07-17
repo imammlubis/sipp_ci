@@ -359,6 +359,7 @@
                 nCells[5].innerHTML = numberWithCommas(parseInt(lima));
                 nCells[6].innerHTML = numberWithCommas(parseInt(onom));
             },
+            "lengthMenu": [[10, 25, 100, -1], [10, 25, 100, "All"]],
             "processing": true, //Feature control the processing indicator.
             "serverSide": true, //Feature control DataTables' server-side processing mode.
             "order": [], //Initial no order.

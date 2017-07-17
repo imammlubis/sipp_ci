@@ -12,7 +12,7 @@ class TagihanAwalModel extends CI_Model{
          tagihanawal.billing_period, tagihanawal.billing_no, tagihanawal.billing_date,
          tagihanawal.iuran_tetap_idr, tagihanawal.iuran_tetap_usd, tagihanawal.royalti_idr, tagihanawal.royalti_usd, tagihanawal.pht_idr, tagihanawal.pht_usd,
          tagihanawal.company_id, company.company_name', 'company.province'); //set column field database for datatable orderable
-    var $column_search = array('company_name'); //set column field database for datatable searchable
+    var $column_search = array('company_name', 'evaluator', 'province'); //set column field database for datatable searchable
     var $order = array('tagihanawal.id' => 'asc'); // default order
 
     public function __construct()
