@@ -235,6 +235,7 @@
                                                     <tr>
                                                         <th>Action</th>
                                                         <th>Perusahaan</th>
+                                                        <th>Provinsi</th>
                                                         <th>Evaluator</th>
                                                         <th>Periode Pemeriksaan</th>
                                                         <th>Periode Tagihan</th>
@@ -248,6 +249,17 @@
                                                         <th>PHT(USD)</th>
                                                     </tr>
                                                     </thead>
+                                                    <tfoot>
+                                                    <tr>
+                                                        <th colspan="8" style="text-align:right">Total:</th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                    </tr>
+                                                    </tfoot>
                                                     <tbody>
                                                     </tbody>
                                                 </table>
@@ -307,6 +319,46 @@
         });
         //datatables
         table = $('#table').DataTable({
+            "fnFooterCallback": function(nRow, aaData, iDataStart, iDataEnd,aiDisplay){
+                var sada = 0;
+                for ( var i=0 ; i<aaData.length ; i++ )
+                {
+                    sada += parseFloat(aaData[i][8].replace(/,/g, ''));
+                }
+                /* Calculate the market share for browsers on this page */
+                var dua = 0;
+                for ( var i=iDataStart ; i<iDataEnd ; i++ )
+                {
+                    dua += parseFloat(aaData[aiDisplay[i]][9].replace(/,/g, ''));
+                }
+                var tolu = 0;
+                for ( var i=iDataStart ; i<iDataEnd ; i++ )
+                {
+                    tolu += parseFloat(aaData[aiDisplay[i]][10].replace(/,/g, ''));
+                }
+                var opat = 0;
+                for ( var i=iDataStart ; i<iDataEnd ; i++ )
+                {
+                    opat += parseFloat(aaData[aiDisplay[i]][11].replace(/,/g, ''));
+                }
+                var lima = 0;
+                for ( var i=iDataStart ; i<iDataEnd ; i++ )
+                {
+                    lima += parseFloat(aaData[aiDisplay[i]][12].replace(/,/g, ''));
+                }
+                var onom = 0;
+                for ( var i=iDataStart ; i<iDataEnd ; i++ )
+                {
+                    onom += parseFloat(aaData[aiDisplay[i]][13].replace(/,/g, ''));
+                }
+                var nCells = nRow.getElementsByTagName('th');
+                nCells[1].innerHTML = numberWithCommas(parseInt(sada));
+                nCells[2].innerHTML = numberWithCommas(parseInt(dua));
+                nCells[3].innerHTML = numberWithCommas(parseInt(tolu));
+                nCells[4].innerHTML = numberWithCommas(parseInt(opat));
+                nCells[5].innerHTML = numberWithCommas(parseInt(lima));
+                nCells[6].innerHTML = numberWithCommas(parseInt(onom));
+            },
             "processing": true, //Feature control the processing indicator.
             "serverSide": true, //Feature control DataTables' server-side processing mode.
             "order": [], //Initial no order.
@@ -323,11 +375,12 @@
                     "orderable": true //set not orderable
                 },
             ],
-
         });
-
     });
 
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    };
     function edit_tagihan(id)
     {
         save_method = 'update';

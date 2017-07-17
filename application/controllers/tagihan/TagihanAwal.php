@@ -31,8 +31,6 @@ class TagihanAwal extends CI_Controller{
             redirect('account/user');
         }
     }
-
-
     public function ajax_list()
     {
         $list = $this->TagihanAwalModel->get_datatables();
@@ -43,6 +41,7 @@ class TagihanAwal extends CI_Controller{
             $row = array();
             $row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Edit" onclick="edit_tagihan('."'".$tagihan->id."'".')"><i class="glyphicon glyphicon-pencil"></i> Edit</a>';
             $row[] = $tagihan->company_name;
+            $row[] = $tagihan->province;
             $row[] = $tagihan->evaluator;
             $row[] = $tagihan->checking_period1 . ' s/d ' . $tagihan->checking_period2;
             $row[] = $tagihan->billing_period;

@@ -11,7 +11,7 @@ class TagihanAwalModel extends CI_Model{
     var $column_order = array(null,'tagihanawal.evaluator, tagihanawal.checking_period1, tagihanawal.checking_period2,
          tagihanawal.billing_period, tagihanawal.billing_no, tagihanawal.billing_date,
          tagihanawal.iuran_tetap_idr, tagihanawal.iuran_tetap_usd, tagihanawal.royalti_idr, tagihanawal.royalti_usd, tagihanawal.pht_idr, tagihanawal.pht_usd,
-         tagihanawal.company_id, company.company_name'); //set column field database for datatable orderable
+         tagihanawal.company_id, company.company_name', 'company.province'); //set column field database for datatable orderable
     var $column_search = array('company_name'); //set column field database for datatable searchable
     var $order = array('tagihanawal.id' => 'asc'); // default order
 
@@ -25,7 +25,7 @@ class TagihanAwalModel extends CI_Model{
         $this->db->select('tagihanawal.id, tagihanawal.evaluator, tagihanawal.checking_period1, tagihanawal.checking_period2,
          tagihanawal.billing_period, tagihanawal.billing_no, tagihanawal.billing_date,
          tagihanawal.iuran_tetap_idr, tagihanawal.iuran_tetap_usd, tagihanawal.royalti_idr, tagihanawal.royalti_usd, tagihanawal.pht_idr, tagihanawal.pht_usd,
-         tagihanawal.company_id, company.company_name, company.is_visible');
+         tagihanawal.company_id, company.company_name, company.is_visible, company.province');
         $this->db->from($this->table);
         $this->db->where('company.is_visible', 1);
         $this->db->join('company', 'tagihanawal.company_id = company.id');
@@ -97,7 +97,7 @@ class TagihanAwalModel extends CI_Model{
         $this->db->select('tagihanawal.id, tagihanawal.evaluator, tagihanawal.checking_period1, tagihanawal.checking_period2,
          tagihanawal.billing_period, tagihanawal.billing_no, tagihanawal.billing_date,
          tagihanawal.iuran_tetap_idr, tagihanawal.iuran_tetap_usd, tagihanawal.royalti_idr, tagihanawal.royalti_usd, tagihanawal.pht_idr, tagihanawal.pht_usd,
-         tagihanawal.company_id, company.company_name, company.is_visible');
+         tagihanawal.company_id, company.company_name, company.is_visible, company.province');
         $this->db->from($this->table);
         $this->db->where('company.is_visible', 1);
         $this->db->join('company', 'tagihanawal.company_id = company.id');

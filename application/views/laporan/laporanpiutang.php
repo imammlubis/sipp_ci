@@ -185,7 +185,7 @@
                     </div>
                     <div class="portlet-body">
                         <div id="sample_1_wrapper" class="dataTables_wrapper no-footer">
-                            <div class="table-scrollable">
+                            <div class="">
                                 <table id="table" class="table table-striped table-bordered table-condensed"
                                        cellspacing="0" width="100%">
                                     <thead>
