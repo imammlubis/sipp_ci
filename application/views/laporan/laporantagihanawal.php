@@ -65,17 +65,18 @@
                                         <th>Perusahaan</th>
                                         <th>Jenis Kontrak</th>
                                         <th>Provinsi</th>
+                                        <th>Tanggal</th>
                                         <th>Saldo Awal IT(IDR)</th>
                                         <th>Saldo Awal IT(USD)</th>
-                                        <th>Saldo Awal R(IDR)</th>
-                                        <th>Saldo Awal R(USD)</th>
-                                        <th>Saldo Awal PHT(IDR)</th>
-                                        <th>Saldo Awal PHT(USD)</th>
+                                        <th>Royalti(IDR)</th>
+                                        <th>Royalti(USD)</th>
+                                        <th>PHT(IDR)</th>
+                                        <th>PHT(USD)</th>
                                     </tr>
                                     </thead>
                                     <tfoot>
                                     <tr>
-                                        <th colspan="3" style="text-align:right">Total:</th>
+                                        <th colspan="4" style="text-align:right">Total:</th>
                                         <th></th>
                                         <th></th>
                                         <th></th>
@@ -147,33 +148,33 @@ $(document).ready(function() {
             var totalSaldoAwalIdr = 0;
             for ( var i=0 ; i<aaData.length ; i++ )
             {
-                totalSaldoAwalIdr += parseFloat(aaData[i][3].replace(/,/g, ''));
+                totalSaldoAwalIdr += parseFloat(aaData[i][4].replace(/,/g, ''));
             }
             /* Calculate the market share for browsers on this page */
             var totalSaldoAwalUsd = 0;
             for ( var i=iDataStart ; i<iDataEnd ; i++ )
             {
-                totalSaldoAwalUsd += parseFloat(aaData[aiDisplay[i]][4].replace(/,/g, ''));
+                totalSaldoAwalUsd += parseFloat(aaData[aiDisplay[i]][5].replace(/,/g, ''));
             }
             var totalPembayaranIdr = 0;
             for ( var i=iDataStart ; i<iDataEnd ; i++ )
             {
-                totalPembayaranIdr += parseFloat(aaData[aiDisplay[i]][5].replace(/,/g, ''));
+                totalPembayaranIdr += parseFloat(aaData[aiDisplay[i]][6].replace(/,/g, ''));
             }
             var totalPembayaranUsd = 0;
             for ( var i=iDataStart ; i<iDataEnd ; i++ )
             {
-                totalPembayaranUsd += parseFloat(aaData[aiDisplay[i]][6].replace(/,/g, ''));
+                totalPembayaranUsd += parseFloat(aaData[aiDisplay[i]][7].replace(/,/g, ''));
             }
             var totalSaldoAkhirIdr = 0;
             for ( var i=iDataStart ; i<iDataEnd ; i++ )
             {
-                totalSaldoAkhirIdr += parseFloat(aaData[aiDisplay[i]][7].replace(/,/g, ''));
+                totalSaldoAkhirIdr += parseFloat(aaData[aiDisplay[i]][8].replace(/,/g, ''));
             }
             var totalSaldoAkhirUsd = 0;
             for ( var i=iDataStart ; i<iDataEnd ; i++ )
             {
-                totalSaldoAkhirUsd += parseFloat(aaData[aiDisplay[i]][8].replace(/,/g, ''));
+                totalSaldoAkhirUsd += parseFloat(aaData[aiDisplay[i]][9].replace(/,/g, ''));
             }
 
             var nCells = nRow.getElementsByTagName('th');

@@ -18,7 +18,7 @@ class LaporanTagihanAwalModel extends CI_Model{
     }
     private function _get_datatables_query()
     {
-        $this->db->select('a.id, b.company_name, b.legal_type, b.province, a.evaluator,
+        $this->db->select('a.id, b.company_name, b.legal_type, b.province, a.evaluator, a.billing_date,
         sum(a.iuran_tetap_idr)iuran_tetap_idr,
         sum(a.iuran_tetap_usd)iuran_tetap_usd,
         sum(a.royalti_idr)royalti_idr,

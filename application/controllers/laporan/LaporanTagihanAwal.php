@@ -46,7 +46,7 @@ class LaporanTagihanAwal extends CI_Controller{
             $row[] = $tagihan->company_name;
             $row[] = $tagihan->legal_type;
             $row[] = $tagihan->province;
-
+            $row[] = $tagihan->billing_date;
             $row[] = number_format($tagihan->iuran_tetap_idr);
             $row[] = number_format($tagihan->iuran_tetap_usd);
 

@@ -35,55 +35,56 @@
 <div class="row">
     <div class="col-md-12 col-sm-12">
         <div class="portlet light ">
-            <div class="portlet-title">
-                <div class="caption caption-md">
-                    <i class="icon-bar-chart font-dark hide"></i>
-                    <span class="caption-subject font-green-steel uppercase bold">Progress</span>
-
-                </div>
-            </div>
-            <div class="portlet-body">
-                <div class="row list-separated">
-                    <div class="col-md-3 col-sm-3 col-xs-6">
-                        <div class="font-grey-mint font-sm"> Total Piutang </div>
-                        <div class="uppercase font-hg font-red-flamingo"> 13,760
-                            <span class="font-lg font-grey-mint">IDR</span>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-3 col-xs-6">
-                        <div class="font-grey-mint font-sm"> Total Pembayaran </div>
-                        <div class="uppercase font-hg theme-font"> 4,760
-                            <span class="font-lg font-grey-mint">IDR</span>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-3 col-xs-6">
-                        <div class="font-grey-mint font-sm"> Total Saldo </div>
-                        <div class="uppercase font-hg font-purple"> 9,000
-                            <span class="font-lg font-grey-mint">IDR</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row list-separated">
-                    <div class="col-md-3 col-sm-3 col-xs-6">
-                        <div class="font-grey-mint font-sm"> Total Piutang </div>
-                        <div class="uppercase font-hg font-red-flamingo"> 13,760
-                            <span class="font-lg font-grey-mint">USD</span>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-3 col-xs-6">
-                        <div class="font-grey-mint font-sm"> Total Pembayaran </div>
-                        <div class="uppercase font-hg theme-font"> 4,760
-                            <span class="font-lg font-grey-mint">USD</span>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-3 col-xs-6">
-                        <div class="font-grey-mint font-sm"> Total Saldo </div>
-                        <div class="uppercase font-hg font-purple"> 9,000
-                            <span class="font-lg font-grey-mint">USD</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!--            <div class="portlet-title">-->
+<!--                <div class="caption caption-md">-->
+<!--                    <i class="icon-bar-chart font-dark hide"></i>-->
+<!--                    <span class="caption-subject font-green-steel uppercase bold">Progress</span>-->
+<!---->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="portlet-body">-->
+<!--                <div class="row list-separated">-->
+<!--                    <div class="col-md-3 col-sm-3 col-xs-6">-->
+<!--                        <div class="font-grey-mint font-sm"> Total Piutang </div>-->
+<!--                        <div class="uppercase font-hg font-red-flamingo"> 13,760-->
+<!--                            <span class="font-lg font-grey-mint">IDR</span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-3 col-sm-3 col-xs-6">-->
+<!--                        <div class="font-grey-mint font-sm"> Total Pembayaran </div>-->
+<!--                        <div class="uppercase font-hg theme-font"> 4,760-->
+<!--                            <span class="font-lg font-grey-mint">IDR</span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-3 col-sm-3 col-xs-6">-->
+<!--                        <div class="font-grey-mint font-sm"> Total Saldo </div>-->
+<!--                        <div class="uppercase font-hg font-purple"> 9,000-->
+<!--                            <span class="font-lg font-grey-mint">IDR</span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="row list-separated">-->
+<!--                    <div class="col-md-3 col-sm-3 col-xs-6">-->
+<!--                        <div class="font-grey-mint font-sm"> Total Piutang </div>-->
+<!--                        <div class="uppercase font-hg font-red-flamingo"> 13,760-->
+<!--                            <span class="font-lg font-grey-mint">USD</span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-3 col-sm-3 col-xs-6">-->
+<!--                        <div class="font-grey-mint font-sm"> Total Pembayaran </div>-->
+<!--                        <div class="uppercase font-hg theme-font"> 4,760-->
+<!--                            <span class="font-lg font-grey-mint">USD</span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-3 col-sm-3 col-xs-6">-->
+<!--                        <div class="font-grey-mint font-sm"> Total Saldo </div>-->
+<!--                        <div class="uppercase font-hg font-purple"> 9,000-->
+<!--                            <span class="font-lg font-grey-mint">USD</span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+            Selamat Datang Di sippminerba (sistem informasi piutang pnbp mineral dan batubara)
         </div>
     </div>
 </div>
