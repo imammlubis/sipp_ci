@@ -5,7 +5,7 @@
  * Date: 7/4/17
  * Time: 3:02 AM
  */
-class LaporanTagihanAwalModel extends CI_Model{
+class LaporanCicilanPembayaranModel extends CI_Model{
     var $table = 'billcredit';
     var $column_order = array(null,'company_name', 'legal_type', 'province', 'evaluator'); //set column field database for datatable orderable
     var $column_search = array('company_name', 'province', 'legal_type'); //set column field database for datatable searchable
@@ -18,16 +18,14 @@ class LaporanTagihanAwalModel extends CI_Model{
     }
     private function _get_datatables_query()
     {
-        $this->db->select('a.id, b.company_name, b.legal_type, b.province, a.evaluator
-        sum(iuran_tetap_idr))iuran_tetap_idr,
-        sum(iuran_tetap_usd))iuran_tetap_usd,
-        sum(royalti_idr))royalti_idr,
-        sum(royalti_usd))royalti_usd');
-        $this->db->from($this->table);
+        $this->db->select('a.id, b.company_name, b.legal_type, b.province,
+        sum(a.amount)iuran_tetap_idr,
+        sum(a.nominaldollar)iuran_tetap_usd');
+        $this->db->from('billcredit a');
         $this->db->join('company b', 'a.company_id = b.id');
-        $this->db->group_by('a.company_name, a.legal_type, a.province');
+        $this->db->group_by('b.company_name, b.legal_type, b.province');
         $this->db->order_by('a.id', 'asc');
-        $this->db->where('a.is_visible', 1);
+        $this->db->where('b.is_visible', 1);
         $i = 0;
 
         foreach ($this->column_search as $item) // loop column
@@ -79,30 +77,19 @@ class LaporanTagihanAwalModel extends CI_Model{
 
     public function count_all()
     {
-        $this->db->select('a.id, a.company_name, a.legal_type, a.province,
-        sum(iuran_tetap_idr))iuran_tetap_idr,
-        sum(iuran_tetap_usd))iuran_tetap_usd,
-        sum(royalti_idr))royalti_idr,
-        sum(royalti_usd))royalti_usd');
         $this->db->from($this->table);
-        $this->db->join('company b', 'a.company_id = b.id');
-        $this->db->group_by('a.company_name, a.legal_type, a.province');
-        $this->db->order_by('a.id', 'asc');
-        $this->db->where('a.is_visible', 1);
         return $this->db->count_all_results();
     }
     public function get_by_id($id)
     {
-        $this->db->select('a.id, a.company_name, a.legal_type, a.province,
-        sum(iuran_tetap_idr))iuran_tetap_idr,
-        sum(iuran_tetap_usd))iuran_tetap_usd,
-        sum(royalti_idr))royalti_idr,
-        sum(royalti_usd))royalti_usd');
-        $this->db->from($this->table);
+        $this->db->select('a.id, b.company_name, b.legal_type, b.province, a.created_date,
+        sum(a.amount)amount,
+        sum(a.nominaldollar)nominaldollar');
+        $this->db->from('billcredit a');
         $this->db->join('company b', 'a.company_id = b.id');
-        $this->db->group_by('a.company_name, a.legal_type, a.province');
+        $this->db->group_by('b.company_name, b.legal_type, b.province');
         $this->db->order_by('a.id', 'asc');
-        $this->db->where('a.is_visible', 1);
+        $this->db->where('b.is_visible', 1);
 
         $this->db->where('a.id',$id);
         $query = $this->db->get();

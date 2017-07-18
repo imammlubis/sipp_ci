@@ -9,8 +9,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class LaporanTagihanAwal extends CI_Controller{
     public function __construct()
     {
-        ini_set('max_execution_time', 0);
-        ini_set('memory_limit','2048M');
+//        ini_set('max_execution_time', 0);
+//        ini_set('memory_limit','2048M');
 
         parent::__construct();
         $this->load->helper('url');

@@ -9,8 +9,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class LaporanCicilanPembayaran extends CI_Controller{
     public function __construct()
     {
-        ini_set('max_execution_time', 0);
-        ini_set('memory_limit','2048M');
+//        ini_set('max_execution_time', 0);
+//        ini_set('memory_limit','2048M');
 
         parent::__construct();
         $this->load->helper('url');
@@ -19,14 +19,13 @@ class LaporanCicilanPembayaran extends CI_Controller{
         //$this->load->library('session');
         $this->load->model('auth/user_model');
         $this->load->helper('auth/user_helper');
-        $this->load->model('LaporanPiutangModel');
+        $this->load->model('LaporanCicilanPembayaranModel');
     }
     function index(){
         check_user_sess();
-//        $this->load->view('account/home');
         if($this->session->userdata('logged_in'))
         {
-            $data ['main_content'] = 'laporan/laporantagihanawal';
+            $data ['main_content'] = 'laporan/laporancicilanpembayaran';
             $this->load->view('layout/MainLayout', $data);
         }
         else{
@@ -34,10 +33,9 @@ class LaporanCicilanPembayaran extends CI_Controller{
         }
     }
 
-
     public function ajax_list()
     {
-        $list = $this->LaporanPiutangModel->get_datatables();
+        $list = $this->LaporanCicilanPembayaranModel->get_datatables();
         $data = array();
         $no = $_POST['start'];
         foreach ($list as $tagihan) {
@@ -46,138 +44,21 @@ class LaporanCicilanPembayaran extends CI_Controller{
             $row[] = $tagihan->company_name;
             $row[] = $tagihan->legal_type;
             $row[] = $tagihan->province;
-
-            $row[] = number_format($tagihan->iuran_tetap_idr);
-            $row[] = number_format($tagihan->iuran_tetap_usd);
-
-            $row[] = number_format($tagihan->royalti_idr);
-            $row[] = number_format($tagihan->royalti_usd);
-
-            $row[] = number_format($tagihan->pht_idr);
-            $row[] = number_format($tagihan->pht_usd);
-
-            $row[] = number_format($tagihan->credidr);
-            $row[] = number_format($tagihan->credusd);
-
-            //saldo akhir
-            $row[] = number_format(($tagihan->iuran_tetap_idr + $tagihan->royalti_idr + $tagihan->pht_idr) - $tagihan->credidr);
-            $row[] = number_format(($tagihan->iuran_tetap_usd + $tagihan->royalti_usd + $tagihan->pht_usd) - $tagihan->credusd);
-
+            $row[] = $tagihan->created_date;
+            $row[] = number_format($tagihan->amount);
+            $row[] = number_format($tagihan->nominaldollar);
             $data[] = $row;
         }
 
         $output = array(
             "draw" => $_POST['draw'],
-            "recordsTotal" => $this->LaporanPiutangModel->count_all(),
-            "recordsFiltered" => $this->LaporanPiutangModel->count_filtered(),
+            "recordsTotal" => $this->LaporanCicilanPembayaranModel->count_all(),
+            "recordsFiltered" => $this->LaporanCicilanPembayaranModel->count_filtered(),
             "data" => $data,
         );
         //output to json format
         echo json_encode($output);
     }
 
-    public function ajax_edit($id)
-    {
-        $data = $this->LaporanPiutangModel->get_by_id($id);
-        //$data->dob = ($data->dob == '0000-00-00') ? '' : $data->dob; // if 0000-00-00 set tu empty for datepicker compatibility
-        echo json_encode($data);
-    }
 
-
-    public function ajax_add()
-    {
-        $this->_validate();
-
-        $periodtime = $this->input->post('periodtime');
-        $keywords = explode(' - ', $periodtime);
-        $from = $keywords[0];
-        $to = $keywords[1];
-
-        $data = array(
-            'evaluator' => $this->input->post('pemeriksa'),
-            'checking_period1' => date('Y-m-d', strtotime($from)),
-            'checking_period2' => date('Y-m-d', strtotime($to)),
-            'billing_period' => $this->input->post('tahunpenagihan'),
-            'billing_no' => $this->input->post('nosurat'),
-            'billing_date' => $this->input->post('tanggaltagihan'),
-            'amount' => $this->input->post('nominaltagihan'),
-            'nominaltagihandollar' => $this->input->post('nominaltagihandollar'),
-            'billing_type' => $this->input->post('tipetagihan'),
-            'company_id' => $this->input->post('itemName')
-        );
-        $insert = $this->LaporanPiutangModel->save($data);
-        echo json_encode(array("status" => TRUE));
-    }
-
-    public function ajax_update()
-    {
-        $this->_validate();
-        $periodtime = $this->input->post('periodtime');
-        $keywords = explode(' - ', $periodtime);
-        $from = $keywords[0];
-        $to = $keywords[1];
-
-        $data = array(
-            'evaluator' => $this->input->post('pemeriksa'),
-            'checking_period1' => date('Y-m-d', strtotime($from)),
-            'checking_period2' => date('Y-m-d', strtotime($to)),
-            'billing_period' => $this->input->post('tahunpenagihan'),
-            'billing_no' => $this->input->post('nosurat'),
-            'billing_date' => $this->input->post('tanggaltagihan'),
-            'amount' => $this->input->post('nominaltagihan'),
-            'nominaltagihandollar' => $this->input->post('nominaltagihandollar'),
-            'billing_type' => $this->input->post('tipetagihan')
-        );
-        $this->LaporanPiutangModel->update(array('id' => $this->input->post('id')), $data);
-        echo json_encode(array("status" => TRUE));
-        //echo json_encode($data);
-    }
-
-    public function ajax_delete($id)
-    {
-        $this->LaporanPiutangModel->delete_by_id($id);
-        echo json_encode(array("status" => TRUE));
-    }
-
-
-    private function _validate()
-    {
-        $data = array();
-        $data['error_string'] = array();
-        $data['inputerror'] = array();
-        $data['status'] = TRUE;
-
-        if($this->input->post('pemeriksa') == '')
-        {
-            $data['inputerror'][] = 'pemeriksa';
-            $data['error_string'][] = 'pemeriksa is required';
-            $data['status'] = FALSE;
-        }
-
-        if($this->input->post('tipetagihan') == '')
-        {
-            $data['inputerror'][] = 'tipetagihan';
-            $data['error_string'][] = 'Tipe tagihan is required';
-            $data['status'] = FALSE;
-        }
-
-        if($data['status'] === FALSE)
-        {
-            echo json_encode($data);
-            exit();
-        }
-    }
-
-    function search(){
-        $json = [];
-        $this->load->database();
-        if(!empty($this->input->get("q"))){
-            $this->db->like('company_name', $this->input->get("q"));
-            $query = $this->db->select('id,company_name as text')
-                ->limit(10)
-                ->get("company");
-            $json = $query->result();
-        }
-        echo json_encode($json);
-    }
 }

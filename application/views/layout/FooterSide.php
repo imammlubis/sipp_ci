@@ -116,9 +116,9 @@
 <script src="<?php echo base_url();?>application/assets/layouts/layout3/scripts/demo.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url();?>application/assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
 
-<script src="<?php echo base_url();?>application/assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
+<!--<script src="--><?php //echo base_url();?><!--application/assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>-->
 
-<!--<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js" type="text/javascript"></script>-->
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js" type="text/javascript"></script>
 <script src="https://cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js" type="text/javascript"></script>
 <script src="//cdn.datatables.net/buttons/1.3.1/js/buttons.flash.min.js" type="text/javascript"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js" type="text/javascript"></script>

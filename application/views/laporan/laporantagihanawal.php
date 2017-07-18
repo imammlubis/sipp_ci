@@ -190,7 +190,7 @@ $(document).ready(function() {
         "deferRender": true,
         // Load data for the table's content from an Ajax source
         "ajax": {
-            "url": "<?php echo site_url('laporan/LaporanPiutang/ajax_list')?>",
+            "url": "<?php echo site_url('laporan/LaporanTagihanAwal/ajax_list')?>",
             "type": "POST"
         },
         //Set column definition initialisation properties.
