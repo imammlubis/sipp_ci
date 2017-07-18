@@ -151,9 +151,17 @@
                                         <i class="fa fa-angle-down"></i>
                                     </a>
                                     <ul class="dropdown-menu pull-left">
+<!--                                        <li class=" ">-->
+<!--                                            <a href="--><?php //echo base_url();?><!--laporan/LaporanPiutang">-->
+<!--                                                <i class="icon-bulb"></i> Laporan Piutang </a>-->
+<!--                                        </li>-->
                                         <li class=" ">
-                                            <a href="<?php echo base_url();?>laporan/LaporanPiutang">
-                                                <i class="icon-bulb"></i> Laporan Piutang </a>
+                                            <a href="<?php echo base_url();?>laporan/LaporanTagihanAwal">
+                                                <i class="icon-bulb"></i> Laporan Tagihan Awal </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="<?php echo base_url();?>laporan/LaporanCicilanPembayaran">
+                                                <i class="icon-bulb"></i> Laporan Cicilan Pembayaran </a>
                                         </li>
                                     </ul>
                                 </li>
