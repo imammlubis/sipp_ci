@@ -82,7 +82,7 @@ class BayarTagihan extends CI_Controller{
             );
             $this->BillCreditModel->update(array('id' => $insert), $dataUpdate);
 //print_r($upload_data);
-            redirect('/perusahaan/bayartagihan', 'refresh');
+            redirect('/perusahaan/BayarTagihan', 'refresh');
         }
     }
     function errorupload(){

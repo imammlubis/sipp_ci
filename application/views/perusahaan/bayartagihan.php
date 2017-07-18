@@ -160,7 +160,8 @@
                                                             <label class="control-label col-md-3">Nominal Pembayaran (IDR)</label>
                                                             <div class="col-md-9">
                                                                 <input name="nominal" id="nominal"
-                                                                       placeholder="Nominal Pembayaran (IDR)" class="form-control" type="number">
+                                                                       placeholder="Nominal Pembayaran (IDR)"
+                                                                       value="0" class="form-control" type="number">
                                                                 <span class="help-block"></span>
                                                             </div>
                                                         </div>
@@ -168,7 +169,9 @@
                                                             <label class="control-label col-md-3">Nominal Pembayaran (USD)</label>
                                                             <div class="col-md-9">
                                                                 <input name="nominaldollar" id="nominaldollar"
-                                                                       placeholder="Nominal Pembayaran (USD)" class="form-control" type="number">
+                                                                       placeholder="Nominal Pembayaran (USD)"
+                                                                       value="0"
+                                                                       class="form-control" type="number">
                                                                 <span class="help-block"></span>
                                                             </div>
                                                         </div>
@@ -221,6 +224,7 @@
     <!-- END CONTENT -->
 </div>
 <script type="text/javascript">
+
 $('#itemName').select2({
     placeholder: '--Pilih Perusahaan--',
     ajax: {
@@ -239,6 +243,7 @@ $('#itemName').select2({
 var table;
 
 $(document).ready(function() {
+
 
     //datatables
     table = $('#table').DataTable({

@@ -23,7 +23,6 @@ class RiwayatTransaksi extends CI_Controller{
     }
     function index(){
         check_user_sess();
-//        $this->load->view('account/home');
         if($this->session->userdata('logged_in'))
         {
             $this->load->helper('url');
@@ -41,6 +40,13 @@ class RiwayatTransaksi extends CI_Controller{
         $data = array();
         $no = $_POST['start'];
         foreach ($list as $billcredit) {
+            if($billcredit->is_approved == 1)
+                $billcredit->is_approved = 'Approved';
+            else if($billcredit->is_approved == 2)
+                $billcredit->is_approved = 'Rejected';
+            else
+                $billcredit->is_approved = 'Not Respond';
+
             $no++;
             $row = array();
             //$row[] = $no;
@@ -48,6 +54,7 @@ class RiwayatTransaksi extends CI_Controller{
             $row[] = number_format($billcredit->nominaldollar);
             $row[] = '<a href='.base_url('uploads/'.$billcredit->file_validation).' target='.'_blank'.'>Link</a>';
             $row[] = $billcredit->objection_information;
+            $row[] = $billcredit->is_approved;
             //$row[] = $billcredit->is_approved == 1 ? 'Approved' : $billcredit->is_approved == 2 ? 'Rejected' : 'Belum diverifikasi';
             $row[] = $billcredit->created_date;
             $data[] = $row;

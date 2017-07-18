@@ -143,7 +143,7 @@
                                                         <th>Nominal Pembayaran (USD)</th>
                                                         <th>File</th>
                                                         <th>Keterangan</th>
-<!--                                                        <th>Status</th>-->
+                                                        <th>Status</th>
                                                         <th>Tanggal Bayar</th>
                                                     </tr>
                                                     </thead>

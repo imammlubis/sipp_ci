@@ -99,7 +99,8 @@ class BillCreditModel extends CI_Model {
         $this->db->where('user_id', $this->session->userdata('logged_in')['user_id']);
         $comp_id = $this->db->get()->row()->id;
 
-        $this->db->select('sum(iuran_tetap_idr) + sum(royalti_idr) + sum(pht_idr) as total', false);
+        $this->db->select('sum(iuran_tetap_idr) + sum(royalti_idr) as total', false);
+       // $this->db->select_sum('(iuran_tetap_idr+royalti_idr+pht_idr)', 'total');
         $this->db->from('tagihanawal');
         $this->db->where('company_id', $comp_id);
         $amountawal = $this->db->get()->row()->total;
@@ -120,7 +121,8 @@ class BillCreditModel extends CI_Model {
         $this->db->where('user_id', $this->session->userdata('logged_in')['user_id']);
         $comp_id = $this->db->get()->row()->id;
 
-        $this->db->select('sum(iuran_tetap_usd) + sum(royalti_usd) + sum(pht_usd) as total', false);
+        $this->db->select('SUM(iuran_tetap_usd) + SUM(royalti_usd) as total', false);
+//        $this->db->select_sum('(iuran_tetap_usd+royalti_usd)', 'total');
         $this->db->from('tagihanawal');
         $this->db->where('company_id', $comp_id);
         $amountawal = $this->db->get()->row()->total;
