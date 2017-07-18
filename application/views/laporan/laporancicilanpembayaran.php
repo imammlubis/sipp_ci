@@ -140,13 +140,13 @@
                 var totalSaldoAwalIdr = 0;
                 for ( var i=0 ; i<aaData.length ; i++ )
                 {
-                    totalSaldoAwalIdr += parseFloat(aaData[i][3].replace(/,/g, ''));
+                    totalSaldoAwalIdr += parseFloat(aaData[i][4].replace(/,/g, ''));
                 }
                 /* Calculate the market share for browsers on this page */
                 var totalSaldoAwalUsd = 0;
                 for ( var i=iDataStart ; i<iDataEnd ; i++ )
                 {
-                    totalSaldoAwalUsd += parseFloat(aaData[aiDisplay[i]][4].replace(/,/g, ''));
+                    totalSaldoAwalUsd += parseFloat(aaData[aiDisplay[i]][5].replace(/,/g, ''));
                 }
 
                 var nCells = nRow.getElementsByTagName('th');

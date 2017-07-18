@@ -18,9 +18,9 @@ class LaporanCicilanPembayaranModel extends CI_Model{
     }
     private function _get_datatables_query()
     {
-        $this->db->select('a.id, b.company_name, b.legal_type, b.province,
-        sum(a.amount)iuran_tetap_idr,
-        sum(a.nominaldollar)iuran_tetap_usd');
+        $this->db->select('a.id, b.company_name, b.legal_type, b.province,a.created_date,
+        sum(a.amount)amount,
+        sum(a.nominaldollar)nominaldollar');
         $this->db->from('billcredit a');
         $this->db->join('company b', 'a.company_id = b.id');
         $this->db->group_by('b.company_name, b.legal_type, b.province');
