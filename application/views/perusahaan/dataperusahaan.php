@@ -181,6 +181,7 @@
                                             <tr>
                                                 <th>Action</th>
                                                 <th>Perusahaan</th>
+                                                <th>Id</th>
                                                 <th>Tipe</th>
                                                 <th>Provinsi</th>
                                                 <th>NPWP</th>
