@@ -53,6 +53,7 @@ class DataPengguna extends CI_Controller{
             $row[] = $user->email;
             $row[] = $user->status;
             $row[] = $user->company_name;
+            $row[] = $user->province;
             $data[] = $row;
         }
 

@@ -33,7 +33,36 @@ class LaporanTagihanAwal extends CI_Controller{
             redirect('account/user');
         }
     }
+    public function ajax_list_dua()
+    {
+        $list = $this->LaporanTagihanAwalModel->get_datatables2();
+        $data = array();
+        $no = $_POST['start'];
+        foreach ($list as $tagihan) {
+            $no++;
+            $row = array();
+            $row[] = $tagihan->company_name;
+            $row[] = $tagihan->billing_date;
+            $row[] = number_format($tagihan->iuran_tetap_idr);
+            $row[] = number_format($tagihan->iuran_tetap_usd);
 
+            $row[] = number_format($tagihan->royalti_idr);
+            $row[] = number_format($tagihan->royalti_usd);
+
+            $row[] = number_format($tagihan->pht_idr);
+            $row[] = number_format($tagihan->pht_usd);
+            $data[] = $row;
+        }
+
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $this->LaporanTagihanAwalModel->count_all2(),
+            "recordsFiltered" => $this->LaporanTagihanAwalModel->count_filtered2(),
+            "data" => $data,
+        );
+        //output to json format
+        echo json_encode($output);
+    }
 
     public function ajax_list()
     {

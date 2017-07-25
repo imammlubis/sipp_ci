@@ -145,6 +145,7 @@
                                                     <thead>
                                                     <tr>
                                                         <th>Action</th>
+                                                        <th>Perusahaan</th>
                                                         <th>Nominal Pembayaran (IDR)</th>
                                                         <th>Nominal Pembayaran (USD)</th>
                                                         <th>File</th>

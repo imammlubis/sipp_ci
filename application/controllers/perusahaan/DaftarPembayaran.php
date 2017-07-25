@@ -45,6 +45,7 @@ class DaftarPembayaran extends CI_Controller{
             $row = array();
             //$row[] = $no;
             $row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Edit" onclick="respond('."'".$billcredit->id."'".')"><i class="glyphicon glyphicon-circle-arrow-up"></i> Respon</a>';
+            $row[] = $billcredit -> company_name;
             $row[] = number_format($billcredit->amount);
             $row[] = number_format($billcredit->nominaldollar);
             $row[] = '<a href='.base_url('uploads/'.$billcredit->file_validation).' target='.'_blank'.'>Link</a>';

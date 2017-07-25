@@ -172,6 +172,7 @@ class User extends CI_Controller
         $data ['main_content'] = 'account/manageprofile';
         $this->load->view('layout_company/MainLayout', $data);
     }
+
     /*
     *   Forget password code.
     */

@@ -46,7 +46,7 @@ class ApprovedRejectedPage extends CI_Controller{
             $row[] = $billcredit->company_name;
             $row[] = number_format($billcredit->amount);
             $row[] = number_format($billcredit->nominaldollar);
-            $row[] = '<a href='.base_url('uploads/'.$billcredit->file_validation).' target='.'_blank'.'>Link</a>';
+            $row[] = $billcredit->file_validation == null ? '' : '<a href='.base_url('uploads/'.$billcredit->file_validation).' target='.'_blank'.'>Link</a>';
             $row[] = $billcredit->objection_information;
             $row[] = $billcredit->is_approved == 1 ? 'Approved' : 'Rejected';
             $row[] = $billcredit->created_date;

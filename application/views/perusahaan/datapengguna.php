@@ -128,6 +128,7 @@
                                                         <th>Email</th>
                                                         <th>Status</th>
                                                         <th>Perusahaan</th>
+                                                        <th>Provinsi</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>

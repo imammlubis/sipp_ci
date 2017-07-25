@@ -132,7 +132,6 @@
                                         </div>
                                     </div>
                                     <div class="portlet-body">
-                                        
                                         <div id="sample_1_wrapper" class="dataTables_wrapper no-footer">
                                             <div class="table-scrollable">
                                                 <table id="table" class="table table-striped table-bordered table-condensed"

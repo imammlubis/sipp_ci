@@ -26,6 +26,7 @@ class LaporanCicilanPembayaranModel extends CI_Model{
         $this->db->group_by('b.company_name, b.legal_type, b.province');
         $this->db->order_by('a.id', 'asc');
         $this->db->where('b.is_visible', 1);
+        $this->db->where('a.is_approved', 1);
         $i = 0;
 
         foreach ($this->column_search as $item) // loop column
@@ -78,6 +79,7 @@ class LaporanCicilanPembayaranModel extends CI_Model{
     public function count_all()
     {
         $this->db->from($this->table);
+        $this->db->where('is_approved', 1);
         return $this->db->count_all_results();
     }
     public function get_by_id($id)

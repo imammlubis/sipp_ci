@@ -5,7 +5,7 @@
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8" />
-    <title>sippminerba</title>
+    <title>sippminerba - sistem informasi piutang pnbp minerba</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta content="" name="description" />
@@ -66,7 +66,7 @@
                                 <!-- BEGIN USER LOGIN DROPDOWN -->
                                 <li class="dropdown dropdown-user dropdown-dark">
                                     <a href="<?php echo base_url('account/user/manage'); ?>" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                        <img alt="" class="img-circle" src="<?php echo base_url();?>application/assets/layouts/layout3/img/avatar9.jpg">
+                                        <img alt="" class="img-circle" src="<?php echo base_url();?>application/assets/layouts/layout3/img/avatar.png">
                                         <span class="username username-hide-mobile">
                                             <?php
                                                 echo $this->session->userdata('logged_in')['fname'].' '.$this->session->userdata('logged_in')['lname'];
@@ -88,7 +88,9 @@
                                 </li>
                                 <li class="dropdown dropdown-quick-sidebar-toggler">
                                     <a href="<?php echo base_url('account/user/logout'); ?>" class="dropdown-toggle" data-toggle="LogOut">
-                                        <i class="icon-logout"></i>
+                                        <b>Log Out</b>
+<!--                                        <i class="icon-logout"></i>-->
+
                                     </a>
                                 </li>
                                 <!-- END USER LOGIN DROPDOWN -->

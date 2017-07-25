@@ -62,7 +62,7 @@ class BayarTagihan extends CI_Controller{
             //$error = array('error' => $this->upload->display_errors());
          //print_r($error);
 //            $this->load->view('perusahaan/bayartagihan', $error);
-            redirect('/perusahaan/bayartagihan/errorupload', 'refresh');
+            redirect('/perusahaan/BayarTagihan/errorupload', 'refresh');
         }
         else
         {
@@ -81,7 +81,6 @@ class BayarTagihan extends CI_Controller{
                 'file_validation' => $upload_data['file_name']
             );
             $this->BillCreditModel->update(array('id' => $insert), $dataUpdate);
-//print_r($upload_data);
             redirect('/perusahaan/BayarTagihan', 'refresh');
         }
     }

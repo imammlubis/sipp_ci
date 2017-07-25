@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class UserModel extends CI_Model {
 
     var $table = 'users';
-    var $column_order = array(null,'users.id', 'users.first_name','users.last_name','users.email', 'company.company_name'); //set column field database for datatable orderable
+    var $column_order = array(null,'users.id', 'users.first_name','users.last_name','users.email','company.province', 'company.company_name'); //set column field database for datatable orderable
     var $column_search = array('email'); //set column field database for datatable searchable
     var $order = array('users.id' => 'asc'); // default order
 
@@ -16,7 +16,7 @@ class UserModel extends CI_Model {
 
     private function _get_datatables_query()
     {
-        $this->db->select('users.id, users.first_name, users.last_name, users.email, users.status, company.company_name');
+        $this->db->select('users.id, users.first_name, users.last_name, users.email, users.status, company.province, company.company_name');
         $this->db->from($this->table);
         $this->db->where('role', 'company');
         $this->db->join('company', 'users.id = company.user_id');
