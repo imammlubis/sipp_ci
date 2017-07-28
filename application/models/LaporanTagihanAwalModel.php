@@ -63,6 +63,9 @@ class LaporanTagihanAwalModel extends CI_Model{
             $this->db->order_by(key($order), $order[key($order)]);
         }
     }
+
+
+
     private function _get_datatables_query2()
     {
         $this->db->select('id');
@@ -173,6 +176,32 @@ class LaporanTagihanAwalModel extends CI_Model{
         $this->db->where('b.id', $comp_id);
         return $this->db->count_all_results();
     }
+
+    public function get_by_prov()
+    {
+        $this->db->select('a.province,
+        (sum(b.iuran_tetap_idr+b.royalti_idr+b.pht_idr)- sum(c.amount))TotalIdr,
+        (sum(b.iuran_tetap_usd+b.royalti_usd+b.pht_usd)- sum(c.nominaldollar))TotalUsd');
+        $this->db->from('company a');
+        $this->db->join('tagihanawal b', 'a.id = b.company_id', 'left');
+        $this->db->join('billcredit c', 'a.id = c.company_id', 'left');
+        $this->db->group_by('a.province');
+        $query = $this->db->get();
+        return $query->result();
+
+//        $this->_get_datatables_query();
+//        if($_POST['length'] != -1)
+//            $this->db->limit($_POST['length'], $_POST['start']);
+//        $query = $this->db->get();
+//        return $query->result();
+
+//        $this->db->from($this->table);
+//        $this->db->where('id',$id);
+//        $query = $this->db->get();
+//
+//        return $query->row();
+    }
+
     public function get_by_id($id)
     {
         $this->db->select('a.id, b.company_name, b.legal_type, b.province, a.evaluator,
@@ -207,4 +236,293 @@ class LaporanTagihanAwalModel extends CI_Model{
         $this->db->where('id', $id);
         $this->db->delete($this->table);
     }
+
+    public function totalSaldoRupiah()
+    {
+        $this->db->select('sum(iuran_tetap_idr) + sum(royalti_idr)+ sum(pht_idr) as total', false);
+        // $this->db->select_sum('(iuran_tetap_idr+royalti_idr+pht_idr)', 'total');
+        $this->db->from('tagihanawal');
+        $amountawal = $this->db->get()->row()->total;
+
+        $this->db->select_sum('amount');
+        $this->db->from('billcredit');
+        $this->db->where('is_approved', 1);
+        $sum_amountcredit = $this->db->get()->row()->amount;
+        $resultsum = $amountawal - $sum_amountcredit;
+
+        return $resultsum;
+    }
+    public function totalSaldoDollar()
+    {
+        $this->db->select('sum(iuran_tetap_usd) + sum(royalti_usd)+ sum(pht_usd) as total', false);
+        // $this->db->select_sum('(iuran_tetap_idr+royalti_idr+pht_idr)', 'total');
+        $this->db->from('tagihanawal');
+        $amountawal = $this->db->get()->row()->total;
+
+        $this->db->select_sum('nominaldollar');
+        $this->db->from('billcredit');
+        $this->db->where('is_approved', 1);
+        $sum_amountcredit = $this->db->get()->row()->nominaldollar;
+        $resultsum = $amountawal - $sum_amountcredit;
+
+        return $resultsum;
+    }
+    public function ITPkp2b()
+    {
+        $this->db->select_sum('a.iuran_tetap_idr');
+        $this->db->from('tagihanawal a');
+        $this->db->join('company b', 'a.company_id = b.id', 'left');
+        $this->db->where('b.legal_type', 'PKP2B');
+        $amountawal = $this->db->get()->row()->iuran_tetap_idr;
+
+
+        $this->db->select_sum('a.amount');
+        $this->db->from('billcredit a');
+        $this->db->join('company b', 'a.company_id = b.id', 'left');
+        $this->db->where('b.legal_type', 'PKP2B');
+        $this->db->where('a.is_approved', 1);
+        $sum_amountcredit = $this->db->get()->row()->amount;
+        $resultsum = $amountawal - $sum_amountcredit;
+
+        return $resultsum;
+
+    }
+    public function ITPkp2bUsd()
+    {
+        $this->db->select_sum('a.iuran_tetap_usd');
+        $this->db->from('tagihanawal a');
+        $this->db->join('company b', 'a.company_id = b.id', 'left');
+        $this->db->where('b.legal_type', 'PKP2B');
+        $amountawal = $this->db->get()->row()->iuran_tetap_usd;
+
+        $this->db->select_sum('a.nominaldollar');
+        $this->db->from('billcredit a');
+        $this->db->join('company b', 'a.company_id = b.id', 'left');
+        $this->db->where('b.legal_type', 'PKP2B');
+        $this->db->where('a.is_approved', 1);
+        $sum_amountcredit = $this->db->get()->row()->nominaldollar;
+        $resultsum = $amountawal - $sum_amountcredit;
+
+        return $resultsum;
+    }
+    public function RoyaltiPkp2b()
+    {
+        $this->db->select_sum('a.royalti_idr');
+        $this->db->from('tagihanawal a');
+        $this->db->join('company b', 'a.company_id = b.id', 'left');
+        $this->db->where('b.legal_type', 'PKP2B');
+        $amountawal = $this->db->get()->row()->royalti_idr;
+
+        $this->db->select_sum('a.amount');
+        $this->db->from('billcredit a');
+        $this->db->join('company b', 'a.company_id = b.id', 'left');
+        $this->db->where('b.legal_type', 'PKP2B');
+        $this->db->where('a.is_approved', 1);
+        $sum_amountcredit = $this->db->get()->row()->amount;
+        $resultsum = $amountawal - $sum_amountcredit;
+
+        return $resultsum;
+    }
+    public function RoyaltiPkp2bUsd()
+    {
+        $this->db->select_sum('a.royalti_usd');
+        $this->db->from('tagihanawal a');
+        $this->db->join('company b', 'a.company_id = b.id', 'left');
+        $this->db->where('b.legal_type', 'PKP2B');
+        $amountawal = $this->db->get()->row()->royalti_usd;
+
+        $this->db->select_sum('a.nominaldollar');
+        $this->db->from('billcredit a');
+        $this->db->join('company b', 'a.company_id = b.id', 'left');
+        $this->db->where('b.legal_type', 'PKP2B');
+        $this->db->where('a.is_approved', 1);
+        $sum_amountcredit = $this->db->get()->row()->nominaldollar;
+        $resultsum = $amountawal - $sum_amountcredit;
+
+        return $resultsum;
+    }
+    public function PHTPkp2b()
+    {
+        $this->db->select_sum('a.pht_idr');
+        $this->db->from('tagihanawal a');
+        $this->db->join('company b', 'a.company_id = b.id', 'left');
+        $this->db->where('b.legal_type', 'PKP2B');
+        $amountawal = $this->db->get()->row()->pht_idr;
+
+        $this->db->select_sum('a.amount');
+        $this->db->from('billcredit a');
+        $this->db->join('company b', 'a.company_id = b.id', 'left');
+        $this->db->where('b.legal_type', 'PKP2B');
+        $this->db->where('a.is_approved', 1);
+        $sum_amountcredit = $this->db->get()->row()->amount;
+        $resultsum = $amountawal - $sum_amountcredit;
+
+        return $resultsum;
+    }
+    public function PHTPkp2bUsd()
+    {
+        $this->db->select_sum('a.pht_usd');
+        $this->db->from('tagihanawal a');
+        $this->db->join('company b', 'a.company_id = b.id', 'left');
+        $this->db->where('b.legal_type', 'PKP2B');
+        $amountawal = $this->db->get()->row()->pht_usd;
+
+        $this->db->select_sum('a.nominaldollar');
+        $this->db->from('billcredit a');
+        $this->db->join('company b', 'a.company_id = b.id', 'left');
+        $this->db->where('b.legal_type', 'PKP2B');
+        $this->db->where('a.is_approved', 1);
+        $sum_amountcredit = $this->db->get()->row()->nominaldollar;
+        $resultsum = $amountawal - $sum_amountcredit;
+
+        return $resultsum;
+    }
+
+    public function IuranTetapKKIdr()
+    {
+        $this->db->select_sum('a.iuran_tetap_idr');
+        $this->db->from('tagihanawal a');
+        $this->db->join('company b', 'a.company_id = b.id', 'left');
+        $this->db->where('b.legal_type', 'KK');
+        $amountawal = $this->db->get()->row()->iuran_tetap_idr;
+
+        $this->db->select_sum('a.amount');
+        $this->db->from('billcredit a');
+        $this->db->join('company b', 'a.company_id = b.id', 'left');
+        $this->db->where('b.legal_type', 'KK');
+        $this->db->where('a.is_approved', 1);
+        $sum_amountcredit = $this->db->get()->row()->amount;
+        $resultsum = $amountawal - $sum_amountcredit;
+
+        return $resultsum;
+    }
+    public function IuranTetapKKUsd()
+    {
+        $this->db->select_sum('a.iuran_tetap_usd');
+        $this->db->from('tagihanawal a');
+        $this->db->join('company b', 'a.company_id = b.id', 'left');
+        $this->db->where('b.legal_type', 'KK');
+        $amountawal = $this->db->get()->row()->iuran_tetap_usd;
+
+        $this->db->select_sum('a.nominaldollar');
+        $this->db->from('billcredit a');
+        $this->db->join('company b', 'a.company_id = b.id', 'left');
+        $this->db->where('b.legal_type', 'KK');
+        $this->db->where('a.is_approved', 1);
+        $sum_amountcredit = $this->db->get()->row()->nominaldollar;
+        $resultsum = $amountawal - $sum_amountcredit;
+
+        return $resultsum;
+    }
+    public function RoyaltiKKIdr()
+    {
+        $this->db->select_sum('a.royalti_idr');
+        $this->db->from('tagihanawal a');
+        $this->db->join('company b', 'a.company_id = b.id', 'left');
+        $this->db->where('b.legal_type', 'KK');
+        $amountawal = $this->db->get()->row()->royalti_idr;
+
+        $this->db->select_sum('a.amount');
+        $this->db->from('billcredit a');
+        $this->db->join('company b', 'a.company_id = b.id', 'left');
+        $this->db->where('b.legal_type', 'KK');
+        $this->db->where('a.is_approved', 1);
+        $sum_amountcredit = $this->db->get()->row()->amount;
+        $resultsum = $amountawal - $sum_amountcredit;
+
+        return $resultsum;
+    }
+    public function RoyaltiKKUsd()
+    {
+        $this->db->select_sum('a.royalti_usd');
+        $this->db->from('tagihanawal a');
+        $this->db->join('company b', 'a.company_id = b.id', 'left');
+        $this->db->where('b.legal_type', 'KK');
+        $amountawal = $this->db->get()->row()->royalti_usd;
+
+        $this->db->select_sum('a.nominaldollar');
+        $this->db->from('billcredit a');
+        $this->db->join('company b', 'a.company_id = b.id', 'left');
+        $this->db->where('b.legal_type', 'KK');
+        $this->db->where('a.is_approved', 1);
+        $sum_amountcredit = $this->db->get()->row()->nominaldollar;
+        $resultsum = $amountawal - $sum_amountcredit;
+
+        return $resultsum;
+    }
+
+
+    public function IuranTetapIupIdr()
+    {
+        $this->db->select_sum('a.iuran_tetap_idr');
+        $this->db->from('tagihanawal a');
+        $this->db->join('company b', 'a.company_id = b.id', 'left');
+        $this->db->where('b.legal_type', 'IUP');
+        $amountawal = $this->db->get()->row()->iuran_tetap_idr;
+
+        $this->db->select_sum('a.amount');
+        $this->db->from('billcredit a');
+        $this->db->join('company b', 'a.company_id = b.id', 'left');
+        $this->db->where('b.legal_type', 'IUP');
+        $this->db->where('a.is_approved', 1);
+        $sum_amountcredit = $this->db->get()->row()->amount;
+        $resultsum = $amountawal - $sum_amountcredit;
+
+        return $resultsum;
+    }
+    public function IuranTetapIupUsd()
+    {
+        $this->db->select_sum('a.iuran_tetap_usd');
+        $this->db->from('tagihanawal a');
+        $this->db->join('company b', 'a.company_id = b.id', 'left');
+        $this->db->where('b.legal_type', 'IUP');
+        $amountawal = $this->db->get()->row()->iuran_tetap_usd;
+
+        $this->db->select_sum('a.nominaldollar');
+        $this->db->from('billcredit a');
+        $this->db->join('company b', 'a.company_id = b.id', 'left');
+        $this->db->where('b.legal_type', 'IUP');
+        $this->db->where('a.is_approved', 1);
+        $sum_amountcredit = $this->db->get()->row()->nominaldollar;
+        $resultsum = $amountawal - $sum_amountcredit;
+
+        return $resultsum;
+    }
+    public function RoyaltiIupIdr()
+    {
+        $this->db->select_sum('a.royalti_idr');
+        $this->db->from('tagihanawal a');
+        $this->db->join('company b', 'a.company_id = b.id', 'left');
+        $this->db->where('b.legal_type', 'IUP');
+        $amountawal = $this->db->get()->row()->royalti_idr;
+
+        $this->db->select_sum('a.amount');
+        $this->db->from('billcredit a');
+        $this->db->join('company b', 'a.company_id = b.id', 'left');
+        $this->db->where('b.legal_type', 'IUP');
+        $this->db->where('a.is_approved', 1);
+        $sum_amountcredit = $this->db->get()->row()->amount;
+        $resultsum = $amountawal - $sum_amountcredit;
+
+        return $resultsum;
+    }
+    public function RoyaltiIupUsd()
+    {
+        $this->db->select_sum('a.royalti_usd');
+        $this->db->from('tagihanawal a');
+        $this->db->join('company b', 'a.company_id = b.id', 'left');
+        $this->db->where('b.legal_type', 'IUP');
+        $amountawal = $this->db->get()->row()->royalti_usd;
+
+        $this->db->select_sum('a.nominaldollar');
+        $this->db->from('billcredit a');
+        $this->db->join('company b', 'a.company_id = b.id', 'left');
+        $this->db->where('b.legal_type', 'IUP');
+        $this->db->where('a.is_approved', 1);
+        $sum_amountcredit = $this->db->get()->row()->nominaldollar;
+        $resultsum = $amountawal - $sum_amountcredit;
+
+        return $resultsum;
+    }
+
 }

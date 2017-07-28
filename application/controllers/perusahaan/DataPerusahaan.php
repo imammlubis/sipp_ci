@@ -18,7 +18,8 @@ class DataPerusahaan extends CI_Controller{
         //$this->load->library('session');
         $this->load->model('auth/user_model');
         $this->load->helper('auth/user_helper');
-        $this->load->model('CompanyModel');
+        $this->load->model('CompanyModel');//LaporanTagihanAwalModel
+        $this->load->model('LaporanTagihanAwalModel');//
     }
     function index(){
         check_user_sess();
@@ -73,6 +74,20 @@ class DataPerusahaan extends CI_Controller{
         echo json_encode($data);
     }
 
+    public function testapi()
+    {
+        echo json_encode('testing');
+    }
+
+    function totalSaldoRupiah(){
+        try{
+            $data = $this->LaporanTagihanAwalModel->totalSaldoRupiah();
+            return number_format($data);
+        }catch (Exception $ex){
+            0;
+        }
+        echo json_encode($data);
+    }
 
     public function ajax_add()
     {

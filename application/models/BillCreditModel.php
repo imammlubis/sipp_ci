@@ -114,6 +114,9 @@ class BillCreditModel extends CI_Model {
 
         return $resultsum;
     }
+
+
+
     public function get_piutang_dollar_by_company_id()
     {
         $this->db->select('id');
